@@ -1,0 +1,26 @@
+/* ===== Pop up (konfirmasi hapus merah, berhasil hijau) ===== */
+.mdl{position:fixed;inset:0;z-index:200;display:grid;place-items:center;padding:16px}
+.mdl-backdrop{position:absolute;inset:0;background:rgba(10,30,20,.55);backdrop-filter:blur(3px);animation:mdlFade .2s ease both}
+.mdl-box{position:relative;width:min(100%,400px);padding:28px 24px 22px;border-radius:22px;background:#fff;text-align:center;
+  box-shadow:0 24px 60px rgba(0,0,0,.3);animation:mdlPop .3s cubic-bezier(.34,1.4,.64,1) both}
+.mdl-icon{display:grid;place-items:center;width:72px;height:72px;margin:0 auto 14px;border-radius:50%}
+.mdl-icon svg{animation:mdlIcon .5s .1s ease both}
+.mdl-icon.is-danger{background:#fee2e2;color:#dc2626;box-shadow:0 0 0 8px #fef2f2}
+.mdl-icon.is-success{background:var(--g100);color:var(--g600);box-shadow:0 0 0 8px var(--g50)}
+.mdl-box h3{margin:0 0 6px;font-size:1.25rem}
+.mdl-box p{margin:0 0 18px;color:var(--muted)}
+.mdl-actions{display:flex;gap:10px}
+.mdl-actions .btn{flex:1;min-width:0}
+.btn-danger-solid{background:#dc2626;color:#fff;box-shadow:0 4px 12px rgba(220,38,38,.3)}
+.btn-danger-solid:hover{background:#b91c1c}
+.mdl-timer{height:4px;margin-top:16px;border-radius:99px;background:var(--g100);overflow:hidden}
+.mdl-timer span{display:block;height:100%;width:100%;background:var(--g500);transform-origin:left;animation:mdlTimer 3.5s linear forwards}
+.mdl.is-leaving .mdl-box{animation:mdlOut .18s ease forwards}
+.mdl.is-leaving .mdl-backdrop{animation:mdlFadeOut .18s ease forwards}
+.modal-open{overflow:hidden}
+@keyframes mdlFade{from{opacity:0}}
+@keyframes mdlFadeOut{to{opacity:0}}
+@keyframes mdlPop{from{opacity:0;transform:translateY(16px) scale(.9)}}
+@keyframes mdlOut{to{opacity:0;transform:scale(.94)}}
+@keyframes mdlIcon{from{opacity:0;transform:scale(.4) rotate(-20deg)}}
+@keyframes mdlTimer{to{transform:scaleX(0)}}

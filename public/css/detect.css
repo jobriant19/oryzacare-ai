@@ -1,0 +1,280 @@
+/* ===== Halaman Deteksi: satu layar penuh tanpa scroll (footer di bawah layar) ===== */
+.dt{display:flex;flex-direction:column;gap:.8em;
+  height:calc(100vh - var(--hh,65px));height:calc(100svh - var(--hh,65px));
+  padding-block:clamp(8px,1.5vh,16px);
+  font-size:clamp(10.5px,1.75vh,19px);line-height:1.45}
+.dt h1,.dt h2,.dt h3,.dt h4,.dt p{margin:0}
+.dt .btn{min-height:2.8em;padding:.4em 1.2em;font-size:1em;border-radius:.85em}
+
+/* Kepala halaman */
+.dt-head{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.6em 1.5em}
+.dt-headtext{min-width:0}
+.dt-eyebrow{display:inline-flex;align-items:center;gap:.4em;padding:.15em .8em;border-radius:99px;background:var(--g100);color:var(--g800);font-size:.8em;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+.dt-head h1{margin-top:.25em;font-size:2em;line-height:1.1}
+.dt-head p{margin-top:.2em;color:var(--muted);font-size:1.05em}
+.dt-head p b{color:var(--g800)}
+.dt-specs{display:flex;flex-wrap:wrap;gap:.6em;margin:0;padding:0;list-style:none}
+.dt-specs li{display:flex;align-items:center;gap:.6em;margin:0;padding:.45em .9em .45em .5em;border:1px solid var(--g200);border-radius:1em;background:#fff;box-shadow:var(--shadow)}
+.dt-specicon{display:grid;place-items:center;flex:none;width:2.3em;height:2.3em;border-radius:.7em;background:var(--g100);color:var(--g700)}
+.dt-specs small{display:block;color:var(--muted);font-size:.78em;line-height:1.2}
+.dt-specs b{display:block;color:var(--g900);font-size:1em;line-height:1.25}
+
+/* Kartu ketentuan: tiap kartu punya warna dan gerak khas */
+.dt-spec-format{--sa:#0284c7;--sb:#e0f2fe;--sc:#bae6fd;--sg:rgba(2,132,199,.25)}
+.dt-spec-size{--sa:#d97706;--sb:#fef3c7;--sc:#fde68a;--sg:rgba(217,119,6,.25)}
+.dt-spec-one{--sa:#16a34a;--sb:var(--g100);--sc:var(--g200);--sg:rgba(22,163,74,.25)}
+.dt-specs .dt-spec{position:relative;overflow:hidden;outline:0;cursor:pointer;border-color:var(--sc);
+  transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s}
+
+.dt-specs .dt-spec:hover,.dt-specs .dt-spec:focus-visible{transform:translateY(-.25em);box-shadow:0 10px 22px var(--sg)}
+.dt-specs .dt-specicon{position:relative;background:var(--sb);color:var(--sa);transition:background .3s,color .3s,transform .3s}
+.dt-specs .dt-spec:hover .dt-specicon,.dt-specs .dt-spec:focus-visible .dt-specicon{background:var(--sa);color:#fff;transform:rotate(-8deg) scale(1.1)}
+
+/* Format foto: chip melompat bergantian */
+.dt-chips{display:flex;gap:.3em;margin-top:.1em}
+.dt-chips i{padding:.05em .5em;border-radius:.5em;background:var(--sb);color:var(--sa);font-size:.88em;font-style:normal;font-weight:800;transition:background .25s,color .25s}
+.dt-spec-format:hover .dt-chips i,.dt-spec-format:focus-visible .dt-chips i{background:var(--sa);color:#fff;animation:dthop .55s ease}
+.dt-chips i:nth-child(2){animation-delay:.1s}
+.dt-chips i:nth-child(3){animation-delay:.2s}
+@keyframes dthop{40%{transform:translateY(-.5em) rotate(-6deg)}}
+
+/* Ukuran maksimal: meter terisi penuh saat disorot */
+.dt-meter{display:block;height:.38em;margin-top:.3em;overflow:hidden;border-radius:99px;background:var(--sb)}
+.dt-meter i{display:block;width:30%;height:100%;border-radius:inherit;background:linear-gradient(90deg,#fbbf24,var(--sa));transition:width .8s cubic-bezier(.2,.8,.2,1)}
+.dt-spec-size:hover .dt-meter i,.dt-spec-size:focus-visible .dt-meter i{width:100%}
+
+/* Per analisis: cincin berdenyut, centang tergambar saat disorot */
+.dt-spec-one .dt-specicon::after{content:"";position:absolute;inset:0;border:2px solid var(--sa);border-radius:.7em;opacity:0}
+.dt-spec-one:hover .dt-specicon::after,.dt-spec-one:focus-visible .dt-specicon::after{animation:dtring 1.2s ease-out infinite}
+@keyframes dtring{from{transform:scale(1);opacity:.7}to{transform:scale(1.7);opacity:0}}
+.dt-spec-one:hover polyline,.dt-spec-one:focus-visible polyline{stroke-dasharray:24;animation:dtdraw .6s ease}
+@keyframes dtdraw{from{stroke-dashoffset:24}to{stroke-dashoffset:0}}
+
+.dt-grid{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.5fr);gap:.9em}
+.dt-card{min-width:0;min-height:0;overflow:auto;background:#fff;border:1px solid var(--line);border-radius:1.2em;box-shadow:var(--shadow);padding:1.1em 1.2em}
+.dt-card h3{margin-bottom:.6em;font-size:1.1em}
+
+/* Unggah */
+.dt-upload{display:flex;flex-direction:column;gap:.8em}
+.dt-alert{margin:0;padding:.55em .9em;font-size:.95em}
+.dt-drop{flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.45em;padding:1em;text-align:center;cursor:pointer;
+  border:2px dashed var(--g300);border-radius:1.1em;
+  background:radial-gradient(circle at 50% 0%,var(--g100),var(--g50) 70%);transition:background .2s,border-color .2s,transform .2s}
+.dt-drop:hover,.dt-drop.drag,#foto:focus-visible + .dt-drop{border-color:var(--g600);background:var(--g100)}
+.dt-drop.drag{transform:scale(1.015)}
+.dt-dropicon{display:grid;place-items:center;width:4.8em;height:4.8em;border-radius:50%;background:#fff;color:var(--g700);
+  box-shadow:0 0 0 .55em rgba(34,197,94,.14),0 8px 18px rgba(22,163,74,.2);animation:dtfloat 3s ease-in-out infinite}
+.dt-drop strong{margin-top:.3em;font-size:1.25em;color:var(--g900)}
+.dt-dropsub{color:var(--muted)}
+@keyframes dtfloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-.45em)}}
+
+.dt-preview{flex:1;min-height:0;display:flex;flex-direction:column;gap:.4em}
+.dt-frame{position:relative;flex:1;min-height:0;display:flex;margin:0;overflow:hidden;isolation:isolate;border-radius:1em;background:#0d2616}
+.dt-frame::before{content:"";position:absolute;inset:-12%;z-index:-1;background:var(--img) center/cover no-repeat;filter:blur(20px) saturate(1.15);opacity:.85}
+.dt-frame img{width:100%;height:100%;min-width:0;min-height:0;object-fit:contain;padding:.5em}
+.dt-name{overflow:hidden;text-align:center;text-overflow:ellipsis;white-space:nowrap;color:var(--muted);font-size:.85em}
+.dt-actions{display:flex;flex-wrap:wrap;justify-content:center;gap:.6em}
+.dt-upload .dt-actions{justify-content:stretch}
+.dt-upload .dt-actions .btn-primary{flex:1 1 12em}
+
+/* Foto tidak dikenali */
+.dt-unknown{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.7em;text-align:center;
+  background:radial-gradient(circle at 50% 0%,#fef3c7,#fff 62%)}
+.dt-uicon{position:relative;display:grid;place-items:center;width:5.6em;height:5.6em;margin-bottom:.4em;border-radius:50%;background:#fff;color:#b45309;box-shadow:0 8px 20px rgba(217,119,6,.22)}
+.dt-uicon::before,.dt-uicon::after{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid #fbbf24;animation:dtpulse 2.2s ease-out infinite}
+.dt-uicon::after{animation-delay:1.1s}
+@keyframes dtpulse{from{transform:scale(1);opacity:.8}to{transform:scale(1.7);opacity:0}}
+.dt-unknown h2{font-size:1.65em;line-height:1.2;color:#78350f}
+.dt-unknown>p{max-width:46ch;color:var(--muted)}
+.dt-hints{list-style:none;margin:.3em 0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.7em;width:100%;max-width:44em}
+.dt-hints li{display:flex;flex-direction:column;align-items:center;gap:.35em;margin:0;padding:.7em .7em;border:1px solid #fde68a;border-radius:1em;background:#fff;font-size:.92em}
+.dt-hints svg{color:#b45309}
+
+/* Kolom samping */
+.dt-side{display:flex;flex-direction:column;gap:.9em;min-width:0;min-height:0}
+.dt-tips{flex:none}
+
+/* Judul panel: huruf kapital + penanda warna + garis memudar */
+.dt-tips h3,.dt-known h3{display:flex;align-items:center;gap:.6em;font-size:1em;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--g900)}
+.dt-tips h3::before,.dt-known h3::before{content:"";flex:none;width:.45em;height:1.3em;border-radius:99px;
+  background:linear-gradient(180deg,#22c55e,#0ea5e9);animation:dtbar 2.4s ease-in-out infinite}
+.dt-known h3::before{background:linear-gradient(180deg,#f59e0b,#ec4899)}
+.dt-tips h3::after,.dt-known h3::after{content:"";flex:1;height:2px;border-radius:99px;background:linear-gradient(90deg,#86efac,transparent)}
+.dt-known h3::after{background:linear-gradient(90deg,#fcd34d,transparent)}
+@keyframes dtbar{0%,100%{transform:scaleY(1)}50%{transform:scaleY(.6)}}
+.dt-known{flex:1;display:flex;flex-direction:column;min-height:0}
+
+/* Tips: 4 sel sejajar */
+.dt-tiplist{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.7em}
+/* Tips: kartu putih; kotak icon diam, tiap elemen pembentuk icon bergerak dengan warnanya sendiri */
+.dt-tip{display:flex;flex-direction:column;align-items:flex-start;gap:.5em;margin:0;padding:.8em .85em;border:1px solid var(--g100);border-radius:1em;background:linear-gradient(160deg,var(--g50),#fff)}
+.dt-tip:nth-child(1){--tg:rgba(2,132,199,.3)}
+.dt-tip:nth-child(2){--tg:rgba(217,119,6,.3)}
+.dt-tip:nth-child(3){--tg:rgba(124,58,237,.3)}
+.dt-tip:nth-child(4){--tg:rgba(5,150,105,.3)}
+.dt-tipicon{display:grid;place-items:center;flex:none;width:2.5em;height:2.5em;border-radius:.8em;cursor:pointer;background:#fff;box-shadow:0 4px 10px var(--tg)}
+.dt-tipicon svg{overflow:visible;transition:transform .35s cubic-bezier(.2,.8,.2,1)}
+.dt-tip:hover .dt-tipicon svg{transform:scale(1.2)}
+.dt-tipicon svg *{transform-box:fill-box;transform-origin:center}
+
+/* 1. Kamera: bodi biru solid, laras lensa gelap dengan cincin berputar, iris berganti warna, rana menekan, kilat + sinar memancar */
+.dt-tip:nth-child(1) .dt-tipicon svg{width:1.6em;height:1.6em}
+.dt-tip:nth-child(1) .c-bump{fill:#0369a1;stroke:none}
+.dt-tip:nth-child(1) .c-body{fill:#0ea5e9;stroke:#0369a1;stroke-width:1.2;animation:dtc-body 3s ease-in-out infinite}
+.dt-tip:nth-child(1) .c-ring{fill:#0c4a6e;stroke:#7dd3fc;stroke-width:1.3;stroke-dasharray:3 2.2;animation:dtc-spin 5s linear infinite}
+.dt-tip:nth-child(1) .c-lens{stroke:none;fill:#8b5cf6;animation:dtc-iris 3s ease-in-out infinite}
+.dt-tip:nth-child(1) .c-glint{fill:#fff;stroke:none;animation:dtc-glint 1.5s ease-in-out infinite}
+.dt-tip:nth-child(1) .c-flash{fill:#fde047;stroke:#f59e0b;stroke-width:.8;animation:dtc-flash 3s ease-out infinite}
+.dt-tip:nth-child(1) .c-rays{stroke:#f59e0b;stroke-width:1.8;opacity:0;animation:dtc-rays 3s ease-out infinite}
+@keyframes dtc-body{0%,64%,100%{transform:none}72%{transform:scale(1.06,.9)}82%{transform:scale(.98,1.03)}90%{transform:none}}
+@keyframes dtc-spin{to{rotate:360deg}}
+@keyframes dtc-iris{0%,100%{scale:1;fill:#f43f5e}33%{scale:1.25;fill:#8b5cf6}66%{scale:.85;fill:#06b6d4}76%{scale:1.5;fill:#fff}}
+@keyframes dtc-glint{0%,100%{opacity:1}50%{opacity:.25}}
+@keyframes dtc-flash{0%,66%{scale:1;fill:#fde047}72%{scale:2.2;fill:#fff}86%,100%{scale:1;fill:#fde047}}
+@keyframes dtc-rays{0%,66%{opacity:0;scale:.5}72%{opacity:1;scale:1.15}86%,100%{opacity:0;scale:1.4}}
+
+/* 2. Cahaya: inti berdenyut, 8 sinar berputar dan memanjang bergantian dengan dua warna */
+.dt-tip:nth-child(2) svg *{transform-box:view-box;transform-origin:50% 50%}
+.dt-tip:nth-child(2) svg circle{stroke:#f59e0b;fill:#fde047;animation:dts-core 2s ease-in-out infinite}
+.dt-tip:nth-child(2) svg path{stroke:#f97316;animation:dts-spin 10s linear infinite,dts-ray 1.6s ease-in-out infinite}
+.dt-tip:nth-child(2) svg path:nth-child(even){stroke:#ef4444}
+.dt-tip:nth-child(2) svg path:nth-child(4n+2){animation-delay:0s,0s}
+.dt-tip:nth-child(2) svg path:nth-child(4n+3){animation-delay:0s,.4s}
+.dt-tip:nth-child(2) svg path:nth-child(4n+4){animation-delay:0s,.8s}
+.dt-tip:nth-child(2) svg path:nth-child(4n+5){animation-delay:0s,1.2s}
+@keyframes dts-spin{to{rotate:360deg}}
+@keyframes dts-ray{0%,100%{scale:1;opacity:.6}50%{scale:1.3;opacity:1}}
+@keyframes dts-core{0%,100%{scale:1;fill:#fde047}50%{scale:1.25;fill:#fb923c}}
+
+/* 3. Latar polos: bingkai putus-putus berjalan mengelilingi, warna berganti ungu, pink, cyan */
+.dt-tip:nth-child(3) svg rect{stroke:#7c3aed;fill:rgba(124,58,237,.12);stroke-dasharray:9 5;animation:dtf-run 1.6s linear infinite,dtf-hue 4s ease-in-out infinite}
+@keyframes dtf-run{to{stroke-dashoffset:-14}}
+@keyframes dtf-hue{0%,100%{stroke:#7c3aed;fill:rgba(124,58,237,.12);scale:1}33%{stroke:#ec4899;fill:rgba(236,72,153,.2);scale:1.08}66%{stroke:#06b6d4;fill:rgba(6,182,212,.2);scale:.92}}
+
+/* 4. Foto asli: foto berlangit biru, matahari + bukit hijau; garis pemindai menyapu; lencana centang hijau selalu tampil dan berdenyut */
+.dt-tip:nth-child(4) .dt-tipicon svg{width:1.6em;height:1.6em}
+.dt-tip:nth-child(4) .f-frame{fill:#e0f2fe;stroke:#059669;stroke-width:1.6}
+.dt-tip:nth-child(4) .f-sun{stroke:none;fill:#fbbf24;animation:dta-sun 2.4s ease-in-out infinite}
+.dt-tip:nth-child(4) .f-hill{fill:#10b981;stroke:none;transform-origin:50% 100%;animation:dta-hill 3.2s ease-in-out infinite}
+.dt-tip:nth-child(4) .f-scan{stroke:#06b6d4;stroke-width:1.8;opacity:0;animation:dta-scan 3.2s ease-in-out infinite}
+.dt-tip:nth-child(4) .f-badge{fill:#059669;stroke:#fff;stroke-width:1.6;animation:dta-badge 1.8s ease-in-out infinite}
+.dt-tip:nth-child(4) .f-check{stroke:#fff;stroke-width:2;stroke-dasharray:8;animation:dta-check 3.2s ease-in-out infinite}
+@keyframes dta-sun{0%,100%{scale:1;fill:#fbbf24}50%{scale:1.3;fill:#fb923c}}
+@keyframes dta-hill{0%{scale:1 .2}35%,100%{scale:1 1}}
+@keyframes dta-scan{0%,10%{translate:0 0;opacity:0}20%{opacity:1}55%{translate:0 10px;opacity:1}65%,100%{translate:0 10px;opacity:0}}
+@keyframes dta-badge{0%,100%{scale:1}50%{scale:1.14}}
+@keyframes dta-check{0%,55%{stroke-dashoffset:8}75%,100%{stroke-dashoffset:0}}
+.dt-tip b{display:block;color:var(--g900);line-height:1.25}
+.dt-tip div span{display:block;margin-top:.2em;color:var(--g800);font-size:.92em;font-weight:600;line-height:1.4}
+
+/* Penyakit: kartu bergambar */
+.dt-dislist{flex:1;min-height:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.7em}
+.acc-amber{--accent:#d97706}.acc-red{--accent:#dc2626}.acc-brown{--accent:#92400e}.acc-yellow{--accent:#ca8a04}
+.acc-amber{--c1:#f97316;--c2:#fde047;--c3:#dc2626}
+.acc-red{--c1:#ef4444;--c2:#f472b6;--c3:#f97316}
+.acc-brown{--c1:#b45309;--c2:#fbbf24;--c3:#7c2d12}
+.acc-yellow{--c1:#8b5cf6;--c2:#06b6d4;--c3:#db2777}
+.acc-amber{--b1:#0ea5e9;--b2:#2563eb}.acc-red{--b1:#e11d48;--b2:#9f1239}
+.dt-dis{position:relative;display:flex;flex-direction:column;min-width:0;min-height:0;overflow:hidden;border:1px solid var(--line);border-radius:1em;background:#fff;
+  transition:transform .25s,box-shadow .25s}
+@property --dtang{syntax:"<angle>";initial-value:0deg;inherits:false}
+.dt-dis{overflow:visible}
+.dt-disimg{border-radius:1em 1em 0 0}
+.dt-disbody{border-radius:0 0 1em 1em}
+.dt-dis::before{content:"";position:absolute;inset:-.32em;z-index:2;padding:.32em;border-radius:1.32em;pointer-events:none;
+  background:conic-gradient(from var(--dtang),transparent 0 62%,var(--c1) 78%,var(--c2) 92%,var(--c3) 100%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;
+  mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude;
+  animation:dtspin 3s linear infinite}
+@keyframes dtspin{to{--dtang:360deg}}
+.dt-dis{transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s,border-color .3s;animation:dtrise .6s cubic-bezier(.2,.8,.2,1) backwards}
+.dt-dis:nth-child(2){animation-delay:.08s}
+.dt-dis:nth-child(3){animation-delay:.16s}
+.dt-dis:nth-child(4){animation-delay:.24s}
+@keyframes dtrise{from{opacity:0;transform:translateY(1em)}}
+.dt-dis:hover{transform:translateY(-.4em)}
+.dt-disimg::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(0,0,0,.2),transparent 38%,transparent 60%,rgba(0,0,0,.32))}
+
+.dt-disbody{background:linear-gradient(180deg,#fff,color-mix(in srgb,var(--accent,#16a34a) 8%,#fff))}
+.dt-disbody h4{transition:color .3s}
+.dt-dis .dt-disbody h4{position:relative;display:inline-flex;align-items:center;gap:.5em;overflow:hidden;padding:.3em .95em .3em .6em;border-radius:99px;
+  background:linear-gradient(120deg,var(--b1,var(--c1)),var(--b2,var(--c3)));color:#fff;font-weight:800;line-height:1.2;text-shadow:0 1px 2px rgba(0,0,0,.4);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.45),inset 0 -2px 0 rgba(0,0,0,.15)}
+.dt-dis .dt-disbody h4::before{content:"";flex:none;width:.7em;height:.7em;border-radius:50%;background:#fff;box-shadow:0 0 0 .2em rgba(255,255,255,.35)}
+.dt-dis .dt-disbody h4::after{content:"";position:absolute;top:0;bottom:0;left:-60%;width:40%;transform:skewX(-20deg);
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);transition:left .6s}
+.dt-dis:hover .dt-disbody h4::after{left:130%}
+@media (prefers-reduced-motion:reduce){.dt-dis,.dt-chips i,.dt-specicon,.dt-specicon::after,.dt-dis::before,.dt-tipicon svg *,.dt-tips h3::before,.dt-known h3::before{animation:none!important}}
+@supports (grid-template-rows:subgrid){
+  .dt-dislist{grid-template-rows:minmax(0,1fr) auto}
+  .dt-dis{display:grid;grid-template-rows:subgrid;grid-row:span 2;gap:0}
+}
+.dt-disimg{position:relative;flex:1 1 0;min-height:3.6em;display:grid;place-items:center;overflow:hidden;color:var(--accent,var(--g600));background:linear-gradient(135deg,var(--g50),var(--g100))}
+.dt-disimg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .4s}
+.dt-dis:hover .dt-disimg img{transform:scale(1.07)}
+.dt-disrisk{position:absolute;right:.5em;top:.7em;z-index:1;padding:.15em .75em;border-radius:99px;background:var(--rb,#22c55e);color:var(--rf,#052e16);font-size:.72em;font-weight:800;box-shadow:0 2px 8px rgba(0,0,0,.25)}
+.risk-tinggi{--rb:#ef4444;--rf:#fff}.risk-sedang{--rb:#fbbf24;--rf:#451a03}.risk-rendah{--rb:#22c55e;--rf:#052e16}
+.dt-disbody{flex:none;padding:.6em .7em .7em}
+.dt-disbody h4{font-size:1em;line-height:1.25;color:var(--g900)}
+.dt-disbody p{margin-top:.45em;color:#000;font-size:.86em;font-weight:600;line-height:1.4}
+
+/* Pop up peringatan */
+.mdl-icon.is-warn{background:#fef3c7;color:#d97706;box-shadow:0 0 0 8px #fffbeb}
+
+/* Loading saat menganalisis */
+.loading{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:20px;background:rgba(10,40,22,.72)}
+.loading-box{width:100%;max-width:320px;padding:28px 36px;border-radius:var(--radius);background:#fff;text-align:center}
+.spinner{width:48px;height:48px;margin:0 auto 14px;border:5px solid var(--g100);border-top-color:var(--g600);border-radius:50%;animation:spin .9s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ===== Layar kecil / pendek ===== */
+@media (max-width:1199px),(max-height:559px){
+  .dt{font-size:clamp(12px,1.8vh,14.5px);gap:.55em;padding-block:.5em}
+  .dt-eyebrow,.dt-spec-opt,.dt-specs small{display:none}
+  .dt-head{gap:.4em}
+  .dt-head h1{margin-top:0;font-size:1.5em}
+  .dt-head p{font-size:.9em}
+  .dt-specs{gap:.4em}
+  .dt-specs li{padding:.25em .7em .25em .35em;gap:.4em;box-shadow:none}
+  .dt-specicon{width:1.9em;height:1.9em}
+  .dt-specs b{font-size:.88em}
+  .dt-meter{display:none}
+  .dt-chips i{font-size:.8em}
+  .dt-specs .dt-spec:hover{transform:none}
+  .dt-grid{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr) auto;gap:.6em}
+  .dt-card{padding:.8em .9em}
+  .dt-dropicon{width:4em;height:4em}
+  .dt-side{flex-direction:column;gap:.6em}
+  .dt-tips h3,.dt-known h3{display:none}
+  .dt-tips,.dt-known{padding:.55em .65em}
+  .dt-tiplist{grid-template-columns:repeat(2,minmax(0,1fr));gap:.4em}
+  .dt-tip{flex-direction:row;align-items:center;gap:.5em;padding:.3em .45em;border:0;background:transparent}
+  .dt-tipicon{width:2em;height:2em;box-shadow:none}
+  .dt-tip div span{display:none}
+  .dt-tip b{font-size:.92em}
+  .dt-dislist{flex:none;grid-template-columns:repeat(2,minmax(0,1fr));gap:.4em}
+  .dt-dislist{grid-template-rows:none}
+  .dt-dis{display:flex;grid-row:auto;flex-direction:row;align-items:center;gap:.5em;border:0;background:var(--g50);border-radius:.8em}
+  .dt-dis::before,.dt-disrisk,.dt-disnum,.dt-disbody p{display:none}
+  .dt-disbody{background:none;border-radius:0}
+  .dt-dis:hover{transform:none;box-shadow:none}
+  .dt-disimg{flex:none;width:2.6em;height:2.6em;min-height:0;border-radius:.8em 0 0 .8em}
+  .dt-disimg svg{width:1.4em;height:1.4em}
+  .dt-disbody{padding:.2em .4em .2em 0}
+  .dt-disbody h4{font-size:.85em}
+  .dt-unknown{padding:.8em}
+  .dt-uicon{width:4.6em;height:4.6em}
+  .dt-unknown h2{font-size:1.35em}
+  .dt-hints{gap:.4em}
+  .dt-hints li{padding:.5em .4em;font-size:.82em}
+}
+@media (max-width:1199px) and (max-height:700px){
+  .dt-unknown{gap:.4em}
+  .dt-uicon{width:3.8em;height:3.8em;margin-bottom:.1em}
+  .dt-uicon svg{width:1.9em;height:1.9em}
+  .dt-unknown h2{font-size:1.2em}
+  .dt-unknown>p{font-size:.9em}
+  .dt-hints svg{display:none}
+  .dt-hints li{padding:.4em .35em;font-size:.78em}
+  .dt-unknown .dt-actions .btn{min-height:2.4em}
+}

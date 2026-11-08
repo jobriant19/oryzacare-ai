@@ -1,0 +1,60 @@
+/* ===== Beranda: Analisis terbaru + Catatan penting — satu layar penuh tanpa scroll ===== */
+/* Kartu memakai gaya .hp-card dari history.css */
+.rc{scroll-margin-top:var(--hh,73px);overflow-x:clip;
+  height:calc(100vh - var(--hh,73px));height:calc(100svh - var(--hh,73px));
+  padding-block:clamp(8px,1.5vh,16px);
+  font-size:clamp(10.5px,1.75vh,19px);line-height:1.45}
+.rc-in{height:100%;min-height:0;display:flex;flex-direction:column;gap:.8em}
+.rc h2,.rc p{margin:0}
+.rc .btn{min-height:2.6em;padding:.4em 1.1em;font-size:1em;border-radius:.85em}
+.rc-solo{height:auto}
+.rc-solo .rc-in{height:auto}
+
+/* ----- Kepala ----- */
+.rc-head{flex:none;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5em 1em}
+.rc .rc-title{display:flex;align-items:center;gap:.6em;font-size:1.9em;color:var(--g900)}
+.rc-ico{display:grid;place-items:center;flex:none;width:1.5em;height:1.5em;border-radius:.45em;color:#fff;
+  background:linear-gradient(135deg,#22c55e,#15803d);box-shadow:0 .25em .6em rgba(22,163,74,.35)}
+.rc-ico svg{width:.85em;height:.85em}
+
+/* ----- Tombol Semua riwayat ----- */
+.rc-all{position:relative;display:inline-flex;align-items:center;gap:.7em;overflow:hidden;min-height:2.8em;
+  padding:.35em .4em .35em 1.2em;border-radius:99px;color:#fff;font-weight:800;text-decoration:none;
+  text-shadow:0 1px 2px rgba(0,0,0,.3);background:linear-gradient(120deg,#22c55e,#15803d);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.45),inset 0 -2px 0 rgba(0,0,0,.15),0 .4em 1em rgba(22,163,74,.35);
+  transition:transform .2s,box-shadow .2s}
+.rc-all:hover{transform:translateY(-.15em);box-shadow:inset 0 1px 0 rgba(255,255,255,.45),inset 0 -2px 0 rgba(0,0,0,.15),0 .7em 1.3em rgba(22,163,74,.4)}
+.rc-all:focus-visible{outline:3px solid var(--g300);outline-offset:3px}
+.rc-all b{display:inline-grid;place-items:center;min-width:1.7em;height:1.7em;padding:0 .45em;border-radius:99px;
+  background:rgba(255,255,255,.3);font-size:.85em;text-shadow:none}
+.rc-arrow{display:grid;place-items:center;width:2em;height:2em;border-radius:50%;background:#fff;color:var(--g700);
+  text-shadow:none;transition:transform .25s}
+.rc-all:hover .rc-arrow{transform:translateX(.25em)}
+.rc-all::after{content:"";position:absolute;top:0;bottom:0;left:-60%;width:40%;transform:skewX(-20deg);pointer-events:none;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);transition:left .6s}
+.rc-all:hover::after{left:130%}
+
+/* ----- Catatan penting ----- */
+.rc-note{flex:none;position:relative;display:flex;align-items:center;gap:1em;overflow:hidden;
+  padding:.8em 1.1em .8em 1.4em;border-radius:1.2em;border:1px solid #fcd34d;
+  background:linear-gradient(120deg,#fffbeb,#fff 75%);box-shadow:var(--shadow)}
+.rc-note::before{content:"";position:absolute;left:0;top:0;bottom:0;width:.4em;background:linear-gradient(180deg,#fbbf24,#d97706)}
+.rc-note-ico{display:grid;place-items:center;flex:none;width:3em;height:3em;border-radius:50%;color:#fff;
+  background:linear-gradient(135deg,#fbbf24,#d97706);animation:rcpulse 2.4s ease-in-out infinite}
+.rc-note-ico svg{width:1.5em;height:1.5em}
+@keyframes rcpulse{0%,100%{box-shadow:0 0 0 .3em #fef3c7}50%{box-shadow:0 0 0 .6em rgba(254,243,199,.35)}}
+.rc-note-body{min-width:0}
+.rc-note-tag{display:inline-block;margin-bottom:.25em;padding:.1em .8em;border-radius:99px;background:#fef3c7;color:#92400e;
+  font-size:.78em;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+.rc-note p{color:var(--ink);font-size:.95em;line-height:1.5}
+.rc-note b{color:#92400e}
+
+/* ----- Tablet & HP: tinggi bebas ----- */
+@media (max-width:900px){
+  .rc{height:auto;font-size:14px}
+  .rc-in{height:auto}
+}
+@media (max-width:560px){
+  .rc-note{align-items:flex-start}
+  .rc-note-ico{width:2.4em;height:2.4em}
+}

@@ -1,0 +1,17 @@
+/* ===== Padi Sehat: memakai kerangka .rs dari result.css, hanya menambah yang khusus ===== */
+.rs[data-tone=green]{--acc:#16a34a;--acc-bg:#dcfce7;--acc-ink:#166534}
+.rs-chip.alt{background:#ecfdf5;color:#065f46;border:1px solid #a7f3d0}
+
+.hs-badge{display:grid;place-items:center;flex:none;width:5.6em;height:5.6em;border-radius:50%;background:var(--g100);color:var(--g600);
+  box-shadow:0 0 0 .5em rgba(34,197,94,.14);animation:hspulse 2.6s ease-in-out infinite}
+.hs-badge svg{width:2.9em;height:2.9em}
+@keyframes hspulse{0%,100%{box-shadow:0 0 0 .35em rgba(34,197,94,.16)}50%{box-shadow:0 0 0 .75em rgba(34,197,94,.06)}}
+
+.rs-prob.warn .rs-track span{background:linear-gradient(90deg,#f59e0b,#b45309)}
+.hs-cap{margin-top:.6em;color:var(--muted);font-size:.85em}
+.hs-warn li::before{content:"!";background:#fef3c7;color:#b45309}
+
+@media (max-width:1199px),(max-height:559px){
+  .hs-badge{width:3.9em;height:3.9em;box-shadow:0 0 0 .3em rgba(34,197,94,.14)}
+  .hs-badge svg{width:2em;height:2em}
+}

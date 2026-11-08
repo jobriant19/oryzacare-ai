@@ -1,0 +1,53 @@
+/* ===== Footer (gambar latar, tinggi, konten jelas) ===== */
+.site-footer{position:relative;display:flex;flex-direction:column;margin-top:auto;color:#fff;
+  min-height:clamp(380px,45vh,560px);
+  padding:clamp(36px,6vw,72px) 0 0;
+  background:linear-gradient(180deg,rgba(8,40,22,.84),rgba(8,40,22,.94)),url('../images/bgfooter.jpg') center/cover no-repeat;
+  background-color:#0f3d24}
+.site-footer p{margin:0 0 .65rem;text-shadow:0 1px 2px rgba(0,0,0,.35)}
+.site-footer a{color:#d6f7e1}
+.site-footer h3{color:#fff}
+
+.footer-grid{flex:1;display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr) minmax(0,1fr);gap:clamp(20px,4vw,56px);align-items:stretch}
+
+/* Tentang */
+.footer-brand{display:inline-flex;align-items:center;gap:12px;margin-bottom:1rem;text-decoration:none;color:#fff!important;font-weight:800;font-size:1.4rem}
+.footer-logo{height:48px;width:auto;max-width:120px;object-fit:contain;background:#fff;border-radius:14px;padding:6px;flex:none}
+.footer-about p{max-width:60ch;color:#eafcf0}
+.footer-note{color:#b9e8c8!important;font-size:.9rem}
+.footer-links{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:1rem}
+.footer-links a{text-decoration:none;font-weight:600;border-bottom:2px solid transparent;transition:border-color .2s}
+.footer-links a:hover{border-color:var(--g300)}
+
+/* Petani */
+.footer-farmer{display:flex;align-items:flex-end;justify-content:center;min-height:180px}
+.footer-farmer img{width:auto;max-width:100%;max-height:clamp(180px,26vw,330px);object-fit:contain;
+  filter:drop-shadow(0 10px 18px rgba(0,0,0,.4));transform-origin:50% 100%;animation:sway 6s ease-in-out infinite}
+@keyframes sway{0%,100%{transform:rotate(-1.5deg)}50%{transform:rotate(1.5deg)}}
+
+/* Statistik (paling kanan) */
+.footer-stats h3{font-size:1.15rem;margin:0 0 .8rem}
+.footer-stats ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:minmax(0,1fr);gap:10px}
+.footer-stats li{display:flex;align-items:center;gap:12px;min-width:0;margin:0;padding:11px 14px;border-radius:14px;
+  background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);backdrop-filter:blur(4px)}
+.stat-ic{display:grid;place-items:center;flex:none;width:36px;height:36px;border-radius:10px;background:rgba(134,239,172,.2);color:var(--g300)}
+.stat-label{flex:1;min-width:0;font-size:.95rem;color:#eafcf0}
+.footer-stats strong{flex:none;font-size:1.3rem;font-weight:800;font-variant-numeric:tabular-nums}
+.live-dot{display:inline-block;width:8px;height:8px;margin-left:6px;border-radius:50%;background:#4ade80;vertical-align:middle;animation:pulse 1.8s ease-out infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(74,222,128,.7)}100%{box-shadow:0 0 0 10px rgba(74,222,128,0)}}
+
+/* Bar bawah */
+.footer-bottom{margin-top:clamp(20px,3vw,32px);padding:16px 0 calc(16px + env(safe-area-inset-bottom));border-top:1px solid rgba(255,255,255,.2);background:rgba(0,0,0,.25)}
+.footer-bottom p{margin:0;font-size:.9rem;color:#d6f7e1}
+
+@media (max-width:1000px){
+  .footer-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .footer-farmer{order:3;grid-column:1/-1}
+}
+@media (max-width:640px){
+  .footer-grid{grid-template-columns:minmax(0,1fr)}
+  .footer-stats ul{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .footer-stats li:last-child{grid-column:1/-1}
+  .footer-stats li{flex-wrap:wrap;gap:8px}
+  .stat-label{flex:1 1 60px}
+}

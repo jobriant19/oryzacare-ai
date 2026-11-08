@@ -1,0 +1,172 @@
+/* ===== Riwayat: satu layar penuh tanpa scroll (footer di bawah layar) ===== */
+.hp{display:flex;flex-direction:column;gap:.8em;overflow-x:clip;
+  height:calc(100vh - var(--hh,73px));height:calc(100svh - var(--hh,73px));
+  padding-block:clamp(8px,1.5vh,16px);
+  font-size:clamp(10.5px,1.75vh,19px);line-height:1.45}
+.hp h1,.hp p{margin:0}
+.hp h1{font-size:2em}
+.hp .btn{min-height:2.6em;padding:.4em 1.1em;font-size:1em;border-radius:.85em}
+
+/* ----- Kepala: judul + pencarian + tombol ----- */
+.hp-head{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.6em 1em}
+.hp-bar{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.6em 1em}
+.hp-tools{display:flex;align-items:center;justify-content:flex-end;flex:1 1 24em;gap:.7em;min-width:0;margin-left:auto}
+.hp-tools .btn{flex:none;white-space:nowrap}
+
+/* ----- Pencarian + tombol reset merah ----- */
+.hp-search{position:relative;flex:1 1 auto;max-width:34em;min-width:12em}
+.hp-search .mag{position:absolute;left:1em;top:50%;transform:translateY(-50%);color:var(--g700);pointer-events:none}
+.hp-search input{width:100%;height:2.8em;padding:0 3em 0 2.8em;border:2px solid var(--g200);border-radius:99px;
+  background:#fff;color:var(--ink);font:inherit;box-shadow:var(--shadow);transition:border-color .2s,box-shadow .2s}
+.hp-search input::placeholder{color:var(--muted)}
+.hp-search input:focus{outline:0;border-color:var(--g600);box-shadow:0 0 0 .25em rgba(34,197,94,.22)}
+.hp-search input:disabled{background:var(--g50);cursor:not-allowed}
+.hp-clear{position:absolute;right:.5em;top:50%;transform:translateY(-50%);display:grid;place-items:center;
+  width:1.9em;height:1.9em;padding:0;border:0;border-radius:50%;background:#dc2626;color:#fff;cursor:pointer;
+  box-shadow:0 2px 6px rgba(220,38,38,.4);transition:background .15s,transform .15s}
+.hp-clear:hover{background:#b91c1c;transform:translateY(-50%) scale(1.12)}
+.hp-clear:focus-visible{outline:3px solid #fecaca;outline-offset:2px}
+
+/* ----- Warna per penyakit (sama dengan badge di halaman Deteksi) ----- */
+.hp-chip,.hp-card{--b1:#22c55e;--b2:#15803d}
+.hp-chip.acc-amber,.hp-card.acc-amber{--b1:#0ea5e9;--b2:#2563eb}
+.hp-chip.acc-red,.hp-card.acc-red{--b1:#e11d48;--b2:#9f1239}
+.hp-chip.acc-brown,.hp-card.acc-brown{--b1:#b45309;--b2:#7c2d12}
+.hp-chip.acc-yellow,.hp-card.acc-yellow{--b1:#8b5cf6;--b2:#db2777}
+.hp-chip.acc-green,.hp-card.acc-green{--b1:#22c55e;--b2:#15803d}
+
+/* ----- Filter: badge gradasi seperti Deteksi ----- */
+.hp-chips{display:flex;flex-wrap:wrap;gap:.6em;padding:.3em .4em}
+.hp-chip{position:relative;display:inline-flex;align-items:center;gap:.5em;overflow:hidden;min-height:2.4em;
+  padding:.25em .5em .25em .75em;border-radius:99px;
+  background:linear-gradient(120deg,var(--b1),var(--b2));color:#fff;font-weight:800;line-height:1.2;text-decoration:none;
+  text-shadow:0 1px 2px rgba(0,0,0,.4);box-shadow:inset 0 1px 0 rgba(255,255,255,.45),inset 0 -2px 0 rgba(0,0,0,.15);
+  opacity:.6;filter:saturate(.75);transition:opacity .2s,filter .2s,transform .2s,box-shadow .2s}
+.hp-chip:hover,.hp-chip:focus-visible{opacity:1;filter:none;transform:translateY(-.15em);outline:0}
+.hp-chip.active{opacity:1;filter:none;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.45),inset 0 -2px 0 rgba(0,0,0,.15),0 0 0 .18em #fff,0 0 0 .34em var(--b1)}
+
+.hp-chip svg{flex:none}
+.hp-chip b{display:inline-grid;place-items:center;min-width:1.7em;height:1.7em;padding:0 .45em;border-radius:99px;
+  background:rgba(255,255,255,.3);font-size:.85em;text-shadow:none}
+.hp-chip::after{content:"";position:absolute;top:0;bottom:0;left:-60%;width:40%;transform:skewX(-20deg);
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);transition:left .6s}
+.hp-chip:hover::after{left:130%}
+
+/* ----- Area kartu: 4 per halaman, mengisi sisa layar ----- */
+.hp-main{flex:1;min-height:0;display:flex;flex-direction:column;gap:.7em}
+.hp-grid{flex:1;min-height:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+  grid-template-rows:minmax(0,1fr);gap:1em;padding-top:.4em}
+
+.hp-card{position:relative;display:flex;flex-direction:column;min-width:0;min-height:0;overflow:hidden;
+  background:linear-gradient(180deg,#fff 45%,color-mix(in srgb,var(--b2) 7%,#fff));
+  border:1px solid var(--line);border-radius:1.2em;box-shadow:var(--shadow);
+  transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s;
+  animation:hprise .5s cubic-bezier(.2,.8,.2,1) backwards}
+
+.hp-card:hover{transform:translateY(-.35em);box-shadow:0 1em 2em rgba(20,83,45,.16)}
+@keyframes hprise{from{opacity:0;transform:translateY(1em)}}
+
+.hp-thumb{position:relative;flex:1 1 0;min-height:4em;display:block;overflow:hidden;
+  background:linear-gradient(135deg,var(--g50),var(--g100))}
+.hp-thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .4s}
+.hp-card:hover .hp-thumb img{transform:scale(1.07)}
+.hp-thumb::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(180deg,rgba(0,0,0,.18),transparent 35%,transparent 65%,rgba(0,0,0,.22))}
+.hp-thumb.is-broken::before{content:"Foto tidak tersedia";position:absolute;inset:0;display:grid;place-items:center;
+  color:var(--muted);font-size:.9em}
+
+.hp-card>:not(.hp-thumb){flex:none;margin-inline:.85em}
+
+/* Badge nama penyakit (sama dengan Deteksi) */
+.hp-name{position:relative;align-self:flex-start;max-width:calc(100% - 1.7em);display:inline-flex;align-items:center;gap:.5em;
+  overflow:hidden;margin-top:.75em;padding:.3em .95em .3em .6em;border-radius:1.1em;
+  background:linear-gradient(120deg,var(--b1),var(--b2));color:#fff;font-weight:800;line-height:1.2;
+  text-shadow:0 1px 2px rgba(0,0,0,.4);box-shadow:inset 0 1px 0 rgba(255,255,255,.45),inset 0 -2px 0 rgba(0,0,0,.15)}
+.hp-name::before{content:"";flex:none;width:.7em;height:.7em;border-radius:50%;background:#fff;box-shadow:0 0 0 .2em rgba(255,255,255,.35)}
+.hp-name::after{content:"";position:absolute;top:0;bottom:0;left:-60%;width:40%;transform:skewX(-20deg);
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);transition:left .6s}
+.hp-card:hover .hp-name::after{left:130%}
+
+/* Tingkat keyakinan: label + angka besar + tingkat + bar */
+.hp-conf{--cA:#22c55e;--cB:#15803d;--cT:#166534;--cS:#dcfce7;
+  margin-top:.6em;padding:.5em .7em .6em;border-radius:.9em;background:var(--cS);border:1px solid color-mix(in srgb,var(--cA) 35%,#fff)}
+.hp-conf.conf-medium,.hp-conf.conf-mid{--cA:#fbbf24;--cB:#d97706;--cT:#92400e;--cS:#fef3c7}
+.hp-conf.conf-low{--cA:#f87171;--cB:#dc2626;--cT:#991b1b;--cS:#fee2e2}
+.hp-conf-top{display:flex;align-items:center;justify-content:space-between;gap:.5em}
+.hp-conf-lbl{color:var(--cT);font-size:.7em;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+.hp-conf-lv{padding:.1em .75em;border-radius:99px;background:linear-gradient(120deg,var(--cA),var(--cB));color:#fff;
+  font-size:.78em;font-weight:800;text-shadow:0 1px 2px rgba(0,0,0,.35);white-space:nowrap}
+.hp-conf-num{margin-top:.1em;color:var(--cT);font-size:1.9em;font-weight:800;line-height:1.1;font-variant-numeric:tabular-nums}
+.hp-conf-bar{height:.55em;margin-top:.3em;overflow:hidden;border-radius:99px;background:rgba(0,0,0,.09)}
+.hp-conf-bar i{display:block;width:var(--p);height:100%;border-radius:inherit;
+  background:linear-gradient(90deg,var(--cA),var(--cB));animation:hpfill .9s cubic-bezier(.2,.8,.2,1) backwards}
+@keyframes hpfill{from{width:0}}
+
+/* Badge waktu */
+.hp-time{display:flex;flex-wrap:wrap;gap:.4em;margin-top:.6em}
+.hp-pill{display:inline-flex;align-items:center;gap:.4em;padding:.2em .7em .2em .5em;border-radius:99px;
+  border:1px solid var(--pc);background:var(--pb);color:var(--pf);font-size:.82em;font-weight:700;line-height:1.3;white-space:nowrap}
+.hp-pill svg{flex:none}
+.hp-pill-date{--pb:#e0f2fe;--pf:#0369a1;--pc:#bae6fd}
+.hp-pill-time{--pb:#fef3c7;--pf:#92400e;--pc:#fde68a}
+
+/* Baris atas kartu: nama penyakit (kiri) + waktu (kanan) */
+.hp-top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.4em .6em;margin-top:.7em}
+.hp-top .hp-name{flex:0 1 auto;align-self:auto;min-width:0;max-width:100%;margin-top:0}
+.hp-top .hp-time{flex:none;flex-direction:column;flex-wrap:nowrap;align-items:flex-end;gap:.3em;margin:0 0 0 auto}
+
+/* Tombol */
+.hp-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.6em;margin-top:.6em}
+.hp-actions>*{min-width:0}
+.hp-actions form{margin:0}
+.hp-actions .btn{display:inline-flex;align-items:center;justify-content:center;gap:.45em;width:100%;color:#fff;font-weight:800;
+  text-shadow:0 1px 2px rgba(0,0,0,.25)}
+.hp-actions .btn svg{flex:none}
+.hp-actions .btn-open{background:#1b9de8;box-shadow:0 .3em .8em rgba(27,157,232,.3)}
+.hp-actions .btn-open:hover{background:#1388cf}
+.hp-actions .btn-delete{background:#ee4037;box-shadow:0 .3em .8em rgba(238,64,55,.3)}
+.hp-actions .btn-delete:hover{background:#d6342b}
+
+/* Deskripsi singkat di dasar kartu (sama dengan "Penyakit yang dikenali") */
+.hp-desc{min-height:4.2em;margin-top:.6em;margin-bottom:.85em;padding-top:.55em;border-top:1px dashed var(--line);
+  color:#000;font-size:.86em;font-weight:600;line-height:1.4}
+
+/* ----- Kosong ----- */
+.hp-empty{flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.35em;
+  padding:1.2em;overflow:hidden;text-align:center;
+  background:radial-gradient(circle at 50% 0%,var(--g100),#fff 65%);
+  border:2px dashed var(--g300);border-radius:1.2em;box-shadow:var(--shadow)}
+.hp-empty-img{flex:0 1 auto;min-height:0;width:auto;max-width:min(70%,26em);max-height:clamp(9em,38vh,24em);
+  margin-bottom:.4em;object-fit:contain;filter:drop-shadow(0 .8em 1em rgba(20,83,45,.15));
+  animation:hpfloat 4s ease-in-out infinite}
+@keyframes hpfloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-.6em)}}
+.hp-empty strong{color:var(--g900);font-size:1.5em;line-height:1.25}
+.hp-empty .muted{max-width:42ch;font-size:1.05em}
+.hp-empty .btn{margin-top:.6em}
+
+/* ----- Indikator halaman (bawah) ----- */
+/* shortcut: satu titik per halaman, bila halaman >12 ganti dengan jendela nomor */
+.hp-pager{flex:none;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:.5em 1em;min-height:2.6em}
+.hp-pgbtn{display:grid;place-items:center;width:2.4em;height:2.4em;padding:0;border:1px solid var(--g200);border-radius:50%;
+  background:#fff;color:var(--g800);cursor:pointer;box-shadow:var(--shadow);transition:background .2s,color .2s,transform .1s}
+.hp-pgbtn:hover:not(:disabled){background:var(--g600);border-color:var(--g600);color:#fff}
+.hp-pgbtn:active:not(:disabled){transform:scale(.94)}
+.hp-pgbtn:disabled{opacity:.4;cursor:not-allowed}
+.hp-pgbtn:focus-visible,.hp-dotbtn:focus-visible{outline:3px solid var(--g300);outline-offset:2px}
+.hp-dots{display:flex;align-items:center;gap:.55em}
+.hp-dotbtn{position:relative;width:.8em;height:.8em;padding:0;border:0;border-radius:99px;background:var(--g200);cursor:pointer;
+  transition:width .25s,background .25s}
+.hp-dotbtn::after{content:"";position:absolute;inset:-.6em}
+.hp-dotbtn:hover{background:var(--g300)}
+.hp-dotbtn[aria-current="true"]{width:2.2em;background:linear-gradient(90deg,#22c55e,#15803d)}
+.hp-count{color:var(--muted);font-size:.85em;font-weight:600}
+
+/* ----- Tablet & HP: tinggi bebas (4 kartu utuh tidak muat terbaca dalam satu layar) ----- */
+@media (max-width:900px){
+  .hp{height:auto;font-size:14px}
+  .hp-grid{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:none}
+  .hp-thumb{flex:none;height:10em}
+  .hp-tools,.hp-search{flex:1 1 100%}
+}
+@media (max-width:379px){.hp-grid{grid-template-columns:minmax(0,1fr)}}

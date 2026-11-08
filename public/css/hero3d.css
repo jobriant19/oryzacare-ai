@@ -1,0 +1,128 @@
+/* ===== Hero OryzaCare: model 3D + ASCII padi + kartu info =====
+   Memakai variabel & animasi dari padi.css (--g*, --muted, rise). */
+
+/* shortcut: --hero-reserve = tinggi navbar + padding + tab + hint + ruang kartu atas (estimasi), sesuaikan bila navbar Anda bukan ±72px */
+:root{--hero-nav:72px;--hero-reserve:240px}
+.h3d{position:relative;width:min(100%,620px,max(260px,calc((100svh - var(--hero-reserve)) * 1.1)));margin-inline:auto;animation:rise .8s ease .2s both}
+
+/* ----- Panggung: kaca putih blur, jernih, tanpa bayangan, area sempit ----- */
+.h3d-frame{position:relative;width:100%;margin-top:34px}
+.h3d-stage{position:relative;isolation:isolate;width:76%;margin-inline:auto;aspect-ratio:5/6;cursor:grab}
+.h3d-stage:active{cursor:grabbing}
+
+/* latar siluet (digambar JS dari render model, ikut berputar) + gelombang cahaya di sekelilingnya */
+.h3d-fx{position:absolute;left:-12%;top:-12%;width:124%;height:124%;z-index:-1;pointer-events:none}
+.h3d-fx--halo{filter:blur(9px)}
+.h3d-fx--wave{filter:blur(12px);opacity:0;animation:h3d-wave 3.6s ease-out infinite}
+.h3d-fx--wave2{animation-delay:-1.8s}
+@keyframes h3d-wave{0%{opacity:.75;transform:scale(1)}100%{opacity:0;transform:scale(1.3)}}
+@media (prefers-reduced-motion:reduce){.h3d-fx--wave{animation:none}}
+
+.h3d-layer{position:absolute;inset:0;display:grid;place-items:center;
+  opacity:0;visibility:hidden;transform:scale(.94);
+  transition:opacity .6s ease,transform .6s ease,visibility .6s}
+.h3d-layer.is-active{opacity:1;visibility:visible;transform:none}
+
+.h3d-canvas{display:block;width:100%;height:100%;cursor:grab;touch-action:pan-y}
+.h3d-canvas:active{cursor:grabbing}
+.h3d-status{position:absolute;inset:auto 0 18px;margin:0;text-align:center;font-size:.85rem;font-weight:600;color:#334155;pointer-events:none}
+
+/* ASCII: ukuran font diatur JS agar selalu muat penuh; warna per huruf lewat kelas o-* */
+.h3d-layer[data-layer="ascii"]{touch-action:pan-y}
+.h3d-pre{margin:0;white-space:pre;user-select:none;pointer-events:none;
+  font-family:ui-monospace,Menlo,Consolas,"Courier New",monospace;font-weight:800;text-shadow:0 1px 2px rgba(0,0,0,.5)}
+/* angka 1 = bagian gelap, 3 = bagian terang */
+.o-l1{color:#65a30d}.o-l2{color:#a3e635}.o-l3{color:#d9f99d}   /* daun */
+.o-g1{color:#d97706}.o-g2{color:#fbbf24}.o-g3{color:#fde68a}   /* bulir & kepala */
+.o-b1{color:#b45309}.o-b2{color:#d6a35c}.o-b3{color:#f0c98a}   /* ikatan pangkal */
+.o-p{color:#f9a8d4}                                             /* pipi */
+
+/* ----- Tab pilihan tampilan ----- */
+.h3d-tabs{display:flex;gap:6px;width:max-content;max-width:100%;margin:14px auto 0;padding:5px;border-radius:99px;
+  background:rgba(15,23,20,.62);border:1px solid rgba(255,255,255,.25);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.h3d-hint{width:max-content;max-width:100%;margin:8px auto 0;padding:4px 12px;border-radius:99px;text-align:center;
+  font-size:.8rem;color:#fff;background:rgba(15,23,20,.62)}
+.h3d-tabs button{font:inherit;font-weight:700;font-size:.85rem;color:#e5fbec;background:transparent;border:0;
+  border-radius:99px;padding:7px 16px;cursor:pointer;transition:background .2s,color .2s}
+.h3d-tabs button:hover{background:rgba(255,255,255,.16)}
+.h3d-tabs button.is-active{background:#fff;color:var(--g800)}
+
+/* ----- Kartu info: warna berbeda + garis hijau berputar ----- */
+@property --h3d-ang{syntax:'<angle>';inherits:false;initial-value:0deg}
+@keyframes h3d-spin{to{--h3d-ang:360deg}}
+@keyframes h3d-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+
+.h3d-card{--c1:#16a34a;--c2:#a3e635;--ink:#14532d;--bg1:#ecfdf5;--bg2:#bbf7d0;--edge:rgba(22,163,74,.28);
+  position:absolute;z-index:3;display:flex;align-items:center;gap:10px;max-width:62%;
+  padding:9px 15px 9px 9px;border-radius:16px;color:var(--ink);
+  background:linear-gradient(135deg,var(--bg1),var(--bg2));
+  box-shadow:inset 0 0 0 1.5px var(--edge),0 14px 30px rgba(0,0,0,.28),0 0 22px -4px var(--c1);
+  pointer-events:none;animation:h3d-float 5s ease-in-out infinite}
+.h3d-card::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:2.5px;pointer-events:none;
+  background:conic-gradient(from var(--h3d-ang),transparent 0 45%,var(--c1) 68%,#22c55e 86%,var(--c2) 100%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;
+  mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude;
+  animation:h3d-spin 3.2s linear infinite}
+.h3d-card--acc{top:-34px;left:0}
+.h3d-card--model{--c1:#f59e0b;--c2:#fde047;--ink:#78350f;--bg1:#fffbeb;--bg2:#fde68a;--edge:rgba(245,158,11,.3);top:-34px;right:0;animation-delay:-1.7s}
+.h3d-card--total{--c1:#0ea5e9;--c2:#2dd4bf;--ink:#0c4a6e;--bg1:#ecfeff;--bg2:#bae6fd;--edge:rgba(14,165,233,.3);bottom:0;left:0;animation-delay:-3.2s}
+.h3d-ico{display:grid;place-items:center;flex:none;width:38px;height:38px;border-radius:12px;color:#fff;
+  background:linear-gradient(135deg,var(--c1),var(--c2));box-shadow:0 4px 10px -2px var(--c1)}
+.h3d-val{display:block;font-weight:800;font-size:1.05rem;line-height:1.1}
+.h3d-lbl{display:block;font-size:.75rem;color:var(--ink);opacity:.75;line-height:1.3}
+
+.h3d-cards{display:contents}
+@media (max-width:600px){
+  .h3d-frame{margin-top:30px}
+  .h3d-stage{width:80%}
+  .h3d-card{gap:6px;padding:5px 9px 5px 5px;border-radius:12px;max-width:none}
+  .h3d-card--acc,.h3d-card--model{top:-30px}
+  .h3d-ico{width:26px;height:26px;border-radius:8px}
+  .h3d-ico svg{width:14px;height:14px}
+  .h3d-val{font-size:.8rem}
+  .h3d-lbl{font-size:.62rem}
+}
+
+/* ===== HERO: latar gambar jernih (tanpa overlay) + panel konten kiri ===== */
+section.hero{position:relative;min-height:calc(100svh - var(--hero-nav));display:flex;align-items:center;
+  padding:clamp(12px,2.5svh,32px) 0;overflow-x:clip;
+  background:#1c1917 url('../images/bgbanner.jpg') center/cover no-repeat}
+section.hero::before,section.hero::after{display:none}
+section.hero>.container{width:100%}
+section.hero .hero-grid{display:grid;width:100%;align-items:center;gap:clamp(14px,3vw,48px);
+  grid-template-columns:minmax(0,1.35fr) minmax(0,1fr)}
+
+/* panel: grid 2 kolom -> tagline & aksen selebar panel; deskripsi + tombol di kiri; gambar padi di kanan bawah */
+section.hero .hero-text{container-type:inline-size;display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:clamp(8px,1.6vw,20px);
+  padding:clamp(14px,2.4vw,36px);border-radius:26px;text-align:left;color:#fff;
+  background:linear-gradient(150deg,rgba(17,24,39,.84),rgba(30,41,59,.70));
+  border:1px solid rgba(255,255,255,.2);box-shadow:0 20px 50px rgba(0,0,0,.35);
+  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+section.hero .hero-text::before{content:"";grid-column:1/-1;width:56px;height:5px;margin-bottom:14px;border-radius:9px;
+  background:linear-gradient(90deg,#22c55e,#a3e635)}
+/* shortcut: 5.2cqw = tiap baris tagline huruf kapital muat 1 baris; bila tagline diganti lebih panjang, kecilkan angkanya */
+section.hero .hero-text h1{grid-column:1/-1;margin:0 0 10px;font-size:max(13px,min(2.5rem,5.2cqw));line-height:1.18;
+  text-transform:uppercase;letter-spacing:.01em;color:#fff}
+section.hero .hero-text h1 span{display:block;white-space:nowrap}
+section.hero .hero-text h1 em{font-style:normal;color:#a3e635}
+section.hero .hero-text .lead{grid-column:1;margin:0 0 18px;max-width:none;color:rgba(255,255,255,.92);font-size:clamp(.82rem,1.6vw,1.1rem);line-height:1.55}
+section.hero .hero-text .hero-cta{grid-column:1;justify-self:start}
+section.hero .hero-text::after{content:"";grid-column:2;grid-row:3/5;align-self:stretch;width:clamp(110px,24cqw,230px);
+  background:url('../images/padi.png') right bottom/contain no-repeat;pointer-events:none}
+
+.hero-cta{display:inline-flex;align-items:center;gap:10px;padding:13px 24px;border-radius:14px;font-weight:800;font-size:1rem;
+  color:#fff;text-decoration:none;background:linear-gradient(135deg,#f59e0b,#ea580c);
+  box-shadow:0 10px 24px -6px rgba(234,88,12,.7),inset 0 1px 0 rgba(255,255,255,.35);transition:transform .2s,box-shadow .2s}
+.hero-cta:hover{transform:translateY(-2px);box-shadow:0 14px 28px -6px rgba(234,88,12,.8),inset 0 1px 0 rgba(255,255,255,.35)}
+.hero-cta:focus-visible{outline:3px solid #fff;outline-offset:3px}
+.hero-cta svg{flex:none}
+
+@media (max-width:860px){
+  :root{--hero-reserve:450px}
+  section.hero .hero-grid{grid-template-columns:minmax(0,1fr);gap:12px}
+  section.hero .hero-text{padding:14px;border-radius:20px}
+  section.hero .hero-text::before{width:44px;height:4px;margin-bottom:10px}
+  section.hero .hero-text .lead{grid-column:1/-1;margin-bottom:12px}
+  section.hero .hero-text::after{grid-row:4;width:clamp(70px,22cqw,100px);height:56px;align-self:center}
+  .hero-cta{padding:11px 20px;font-size:.95rem}
+}
