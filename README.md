@@ -111,6 +111,7 @@ oryzacare-ai/
 │   │   ├── footer.css                    # Gaya footer dan statistik
 │   │   ├── detect.css                    # Gaya halaman Deteksi (kartu ketentuan, tips, kartu penyakit)
 │   │   ├── history.css                   # Gaya halaman Riwayat (pencarian, filter, kartu, indikator halaman)
+│   │   ├── diseases.css                  # Gaya Jenis penyakit di Beranda (kartu bergaris bergerak)
 │   │   └── recent.css                    # Gaya Analisis terbaru dan Catatan penting di Beranda
 │   ├── js/
 │   │   ├── padi.js                       # Cara kerja, animasi scroll, form deteksi
@@ -119,6 +120,7 @@ oryzacare-ai/
 │   │   ├── detect.js                     # Pratinjau, validasi format/ukuran, pop up, loading, dan Coba Foto Lain
 │   │   ├── fit.js                        # Dipanggil halaman Deteksi (detect.blade.php)
 │   │   ├── history.js                    # Pencarian, 4 kartu per halaman + indikator
+│   │   ├── diseases.js                   # Tinggi layar dan efek muncul Jenis penyakit di Beranda
 │   │   └── recent.js                     # Tinggi layar dan penanda foto rusak di Beranda
 │   ├── images/
 │   │   ├── logo.png                      # Logo dan ikon tab browser
@@ -140,6 +142,7 @@ oryzacare-ai/
 │       │   ├── header.blade.php          # Header putih + menu
 │       │   ├── footer.blade.php          # Footer + statistik pengunjung
 │       │   ├── history-card.blade.php    # Kartu riwayat (dipakai Riwayat dan Beranda)
+│       │   ├── diseases.blade.php        # Jenis penyakit (Beranda)
 │       │   └── recent.blade.php          # Analisis terbaru + Catatan penting (Beranda)
 │       ├── pagination/padi.blade.php     # Tampilan paginasi kustom
 │       ├── home.blade.php                # Beranda

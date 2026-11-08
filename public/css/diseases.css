@@ -1,0 +1,127 @@
+/* ===== Beranda: Jenis penyakit — satu layar penuh tanpa scroll ===== */
+.jd{position:relative;overflow-x:clip;scroll-margin-top:var(--hh,73px);
+  background:radial-gradient(60em 18em at 50% 0,rgba(134,239,172,.4),transparent 70%),#ebf6ef;
+  height:calc(100vh - var(--hh,73px));height:calc(100svh - var(--hh,73px));
+  padding-block:clamp(10px,2vh,22px);
+  font-size:clamp(10.5px,1.75vh,19px);line-height:1.45}
+.jd-in{height:100%;min-height:0;display:flex;flex-direction:column;gap:.8em}
+.jd h2,.jd h3,.jd p,.jd ul{margin:0}
+
+/* ----- Judul ----- */
+.jd-head{position:relative;isolation:isolate;flex:none;display:flex;flex-direction:column;align-items:center;gap:.4em;text-align:center}
+.jd-head::before{content:"";position:absolute;left:50%;top:50%;z-index:-1;width:min(48em,92%);height:9em;
+  transform:translate(-50%,-50%);pointer-events:none;
+  background:radial-gradient(closest-side,rgba(134,239,172,.6),rgba(186,230,253,.25) 60%,transparent)}
+.jd-eyebrow{position:relative;overflow:hidden;display:inline-flex;align-items:center;gap:.55em;padding:.25em 1.1em .25em .3em;
+  border-radius:99px;background:#fff;border:1px solid var(--g200);color:var(--g800);font-size:.8em;font-weight:800;
+  letter-spacing:.1em;text-transform:uppercase;box-shadow:var(--shadow)}
+.jd-eyebrow i{position:relative;display:grid;place-items:center;width:1.9em;height:1.9em;border-radius:50%;color:#fff;
+  background:linear-gradient(135deg,#22c55e,#15803d)}
+.jd-eyebrow i::after{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid #22c55e;animation:jdring 2.2s ease-out infinite}
+@keyframes jdring{from{transform:scale(1);opacity:.8}to{transform:scale(1.9);opacity:0}}
+.jd-eyebrow svg{width:1.05em;height:1.05em}
+.jd-eyebrow::after{content:"";position:absolute;top:0;bottom:0;left:-60%;width:35%;transform:skewX(-20deg);pointer-events:none;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.8),transparent);animation:jdshine 4s ease-in-out infinite}
+@keyframes jdshine{0%,60%{left:-60%}100%{left:140%}}
+
+.jd-titlewrap{position:relative;display:inline-block;padding-inline:2.6em}
+.jd .jd-title{font-size:2.3em;line-height:1.15;color:var(--g900);letter-spacing:-.01em}
+.jd .jd-title em{font-style:normal;background:linear-gradient(90deg,#16a34a,#0ea5e9,#8b5cf6,#16a34a);background-size:200% 100%;
+  -webkit-background-clip:text;background-clip:text;color:transparent;animation:jdhue 6s linear infinite}
+@keyframes jdhue{to{background-position:200% 0}}
+.jd-leaf{position:absolute;top:50%;width:2em;height:2em;margin-top:-1em;animation:jdfloat 3.6s ease-in-out infinite}
+.jd-leaf svg{width:100%;height:100%;filter:drop-shadow(0 .3em .4em rgba(20,83,45,.25))}
+.jd-leaf-l{left:0;--r:-18deg;color:#22c55e}
+.jd-leaf-r{right:0;--r:18deg;color:#0ea5e9;animation-delay:-1.8s}
+.jd-leaf-r svg{transform:scaleX(-1)}
+@keyframes jdfloat{0%,100%{transform:translateY(0) rotate(var(--r))}50%{transform:translateY(-.4em) rotate(var(--r))}}
+
+/* ----- Grid 4 kartu ----- */
+.jd-grid{flex:1;min-height:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+  grid-template-rows:minmax(0,1fr);gap:1.1em;padding:.5em .45em .45em}
+
+/* ----- Warna per penyakit (sama dengan Deteksi) ----- */
+.jd-card.acc-amber{--accent:#d97706;--c1:#f97316;--c2:#fde047;--c3:#dc2626;--b1:#0ea5e9;--b2:#2563eb}
+.jd-card.acc-red{--accent:#dc2626;--c1:#ef4444;--c2:#f472b6;--c3:#f97316;--b1:#e11d48;--b2:#9f1239}
+.jd-card.acc-brown{--accent:#92400e;--c1:#b45309;--c2:#fbbf24;--c3:#7c2d12;--b1:#b45309;--b2:#7c2d12}
+.jd-card.acc-yellow{--accent:#ca8a04;--c1:#8b5cf6;--c2:#06b6d4;--c3:#db2777;--b1:#8b5cf6;--b2:#db2777}
+
+/* ----- Kartu + stroke bergerak mengelilingi ----- */
+@property --jdang{syntax:"<angle>";initial-value:0deg;inherits:false}
+.jd-card{position:relative;display:flex;flex-direction:column;min-width:0;min-height:0;
+  background:#fff;border:1px solid var(--line);border-radius:1.2em;box-shadow:var(--shadow);
+  transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s}
+.jd-card::before{content:"";position:absolute;inset:-.32em;z-index:2;padding:.32em;border-radius:1.52em;pointer-events:none;
+  background:conic-gradient(from var(--jdang),transparent 0 62%,var(--c1) 78%,var(--c2) 92%,var(--c3) 100%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;
+  mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude;
+  animation:jdspin 3s linear infinite}
+@keyframes jdspin{to{--jdang:360deg}}
+.jd-card:hover{transform:translateY(-.4em);box-shadow:0 1em 2em rgba(20,83,45,.16)}
+
+/* Efek muncul saat bagian ini terlihat (diaktifkan oleh diseases.js) */
+.jd.jd-ready:not(.in) .jd-card{opacity:0;transform:translateY(1.2em)}
+.jd.in .jd-card{animation:jdrise .6s cubic-bezier(.2,.8,.2,1) backwards;animation-delay:calc(var(--i,0) * 90ms)}
+@keyframes jdrise{from{opacity:0;transform:translateY(1.2em)}}
+
+/* ----- Gambar ----- */
+.jd-img{position:relative;flex:1 1 0;min-height:5em;display:grid;place-items:center;overflow:hidden;
+  border-radius:1.2em 1.2em 0 0;color:var(--accent,var(--g600));background:linear-gradient(135deg,var(--g50),var(--g100))}
+.jd-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.jd-card:hover .jd-img img{transform:scale(1.07)}
+.jd-img::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(180deg,rgba(0,0,0,.2),transparent 38%,transparent 62%,rgba(0,0,0,.3))}
+.jd-img svg{width:4.5em;height:4.5em}
+.jd-risk{position:absolute;right:.6em;top:.8em;z-index:1;padding:.18em .85em;border-radius:99px;
+  background:var(--rb,#22c55e);color:var(--rf,#052e16);font-size:.78em;font-weight:800;box-shadow:0 2px 8px rgba(0,0,0,.25)}
+.risk-tinggi{--rb:#ef4444;--rf:#fff}.risk-sedang{--rb:#fbbf24;--rf:#451a03}.risk-rendah{--rb:#22c55e;--rf:#052e16}
+
+/* ----- Isi ----- */
+.jd-body{flex:none;display:flex;flex-direction:column;gap:.5em;padding:.85em .95em .95em;border-radius:0 0 1.2em 1.2em;
+  background:linear-gradient(180deg,#fff,color-mix(in srgb,var(--accent,#16a34a) 8%,#fff))}
+.jd .jd-name{position:relative;align-self:flex-start;max-width:100%;display:inline-flex;align-items:center;gap:.5em;
+  overflow:hidden;padding:.3em 1em .3em .6em;border-radius:99px;font-size:1.1em;font-weight:800;line-height:1.2;color:#fff;
+  background:linear-gradient(120deg,var(--b1),var(--b2));text-shadow:0 1px 2px rgba(0,0,0,.4);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.45),inset 0 -2px 0 rgba(0,0,0,.15)}
+.jd-name::before{content:"";flex:none;width:.7em;height:.7em;border-radius:50%;background:#fff;box-shadow:0 0 0 .2em rgba(255,255,255,.35)}
+.jd-name::after{content:"";position:absolute;top:0;bottom:0;left:-60%;width:40%;transform:skewX(-20deg);
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);transition:left .6s}
+.jd-card:hover .jd-name::after{left:130%}
+
+/* Nama latin: kotak berwarna, lebih tebal dan gelap, tinggi 2 baris agar sejajar antar kartu */
+.jd-latin{display:flex;align-items:center;min-height:3.4em;padding:.35em .7em;
+  border-left:.28em solid var(--accent,var(--g600));border-radius:0 .7em .7em 0;
+  background:color-mix(in srgb,var(--accent,#16a34a) 9%,#fff);
+  color:#1f2a24;font-size:.9em;font-style:italic;font-weight:600;line-height:1.35}
+.jd-sum{color:#000;font-size:.92em;font-weight:600;line-height:1.45}
+
+/* Dua ciri: masing-masing satu baris */
+.jd-list{list-style:none;display:grid;gap:.45em;padding:.6em .75em;border-radius:.9em;
+  background:color-mix(in srgb,var(--accent,#16a34a) 9%,#fff);
+  border:1px solid color-mix(in srgb,var(--accent,#16a34a) 24%,#fff);
+  color:#33423a;font-size:.84em;line-height:1.4}
+.jd-list li{position:relative;margin:0;padding-left:1.7em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.jd-list li::before{content:"✓";position:absolute;left:0;top:.05em;display:grid;place-items:center;width:1.3em;height:1.3em;
+  border-radius:50%;background:var(--accent,var(--g600));color:#fff;font-size:.8em;font-weight:800;line-height:1}
+
+/* ----- Tinggi isi kartu sejajar antar kartu (subgrid) ----- */
+/* shortcut: tanpa subgrid (browser lama) tinggi isi kartu bisa sedikit berbeda, gambar tetap mengisi sisa ruang */
+@supports (grid-template-rows:subgrid){
+  .jd-grid{grid-template-rows:minmax(0,1fr) auto}
+  .jd-card{display:grid;grid-template-rows:subgrid;grid-row:span 2;gap:0}
+}
+
+/* ----- Tablet & HP: tinggi bebas ----- */
+@media (max-width:900px){
+  .jd{height:auto;font-size:14px;padding-block:20px}
+  .jd-in{height:auto}
+  .jd-grid{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:none}
+  .jd-card{display:flex;grid-row:auto}
+  .jd-img{flex:none;height:12em}
+  .jd-list li{white-space:normal}
+}
+@media (max-width:560px){
+  .jd-grid{grid-template-columns:minmax(0,1fr)}
+  .jd-titlewrap{padding-inline:0}
+  .jd-leaf{display:none}
+}

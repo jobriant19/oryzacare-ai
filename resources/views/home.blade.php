@@ -3,12 +3,14 @@
 @section('title', 'Beranda')
 
 @push('styles')
-    <link rel="stylesheet" href="{{ asset('css/history.css') }}?v=6">
+    <link rel="stylesheet" href="{{ asset('css/history.css') }}?v=7">
     <link rel="stylesheet" href="{{ asset('css/recent.css') }}?v=1">
+    <link rel="stylesheet" href="{{ asset('css/diseases.css') }}?v=1">
 @endpush
 
 @push('scripts')
     <script src="{{ asset('js/recent.js') }}?v=1"></script>
+    <script src="{{ asset('js/diseases.js') }}?v=1"></script>
 @endpush
 
 @section('content')
@@ -158,43 +160,6 @@
         </div>
     </div>
 </section>
-
-<section class="section section-alt">
-    <div class="container">
-        <div class="section-intro reveal">
-            <span class="eyebrow">Jenis penyakit</span>
-            <h2 class="section-title">Penyakit yang dapat dideteksi</h2>
-            <p>Empat penyakit daun padi yang dikenali oleh model.</p>
-        </div>
-
-        <div class="disease-grid">
-            @foreach ($diseases as $key => $d)
-                <div class="reveal" style="--i: {{ $loop->index }}">
-                    <article class="dcard acc-{{ $d['tone'] }}">
-                        <div class="dcard-media">
-                            @if (file_exists(public_path('images/penyakit/'.$key.'.jpg')))
-                                <img src="{{ asset('images/penyakit/'.$key.'.jpg') }}" alt="Contoh {{ $d['name'] }}" loading="lazy">
-                            @else
-                                <svg viewBox="0 0 24 24" width="56" height="56" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
-                            @endif
-                            <span class="dcard-risk">Risiko {{ $d['risk'] }}</span>
-                        </div>
-                        <div class="dcard-body">
-                            <h3>{{ $d['name'] }}</h3>
-                            <p class="muted small italic">{{ $d['latin'] }}</p>
-                            <p>{{ $d['summary'] }}</p>
-                            <ul class="dcard-list">
-                                @foreach (array_slice($d['symptoms'], 0, 2) as $symptom)
-                                    <li>{{ $symptom }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    </article>
-                </div>
-            @endforeach
-        </div>
-    </div>
-</section>
-
+@include('partials.diseases', ['diseases' => $diseases])
 @include('partials.recent', ['recent' => $recent, 'total' => $total])
 @endsection
