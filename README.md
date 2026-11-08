@@ -146,7 +146,7 @@ oryzacare-ai/
 │       ├── layouts/app.blade.php         # Kerangka halaman (memanggil header dan footer)
 │       ├── partials/
 │       │   ├── header.blade.php          # Header putih + menu
-│       │   ├── footer.blade.php          # Footer + statistik pengunjung
+│       │   ├── footer.blade.php          # Footer: deskripsi, tautan cepat, petani, statistik pengunjung
 │       │   ├── history-card.blade.php    # Kartu riwayat (dipakai Riwayat dan Beranda)
 │       │   ├── diseases.blade.php        # Jenis penyakit (Beranda)
 │       │   ├── howto.blade.php           # Cara pakai: tiga langkah (Beranda)

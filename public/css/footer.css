@@ -1,53 +1,115 @@
-/* ===== Footer (gambar latar, tinggi, konten jelas) ===== */
-.site-footer{position:relative;display:flex;flex-direction:column;margin-top:auto;color:#fff;
-  min-height:clamp(380px,45vh,560px);
-  padding:clamp(36px,6vw,72px) 0 0;
-  background:linear-gradient(180deg,rgba(8,40,22,.84),rgba(8,40,22,.94)),url('../images/bgfooter.jpg') center/cover no-repeat;
-  background-color:#0f3d24}
-.site-footer p{margin:0 0 .65rem;text-shadow:0 1px 2px rgba(0,0,0,.35)}
-.site-footer a{color:#d6f7e1}
-.site-footer h3{color:#fff}
+/* ===== Footer: latar gambar jernih + panel blur 30%, satu layar tanpa scroll ===== */
+.site-footer{--fg:rgba(8,40,22,.30);
+  position:relative;display:flex;flex-direction:column;margin-top:auto;color:#fff;overflow-x:clip;
+  font-size:clamp(11px,min(1.6vh,.95vw),17px);line-height:1.5;
+  padding:2.2em 0 0;
+  background:url('../images/bgfooter.jpg') center/cover no-repeat;background-color:#0f3d24;
+  text-shadow:0 1px 3px rgba(0,0,0,.55)}
+.site-footer p{margin:0}
+.site-footer a{color:#fff}
+.site-footer h3{margin:0}
 
-.footer-grid{flex:1;display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr) minmax(0,1fr);gap:clamp(20px,4vw,56px);align-items:stretch}
+.footer-grid{display:grid;align-items:stretch;gap:2.2em;
+  grid-template-columns:minmax(0,1.3fr) minmax(0,.85fr) minmax(0,.75fr) minmax(0,1fr);
+  grid-template-areas:"about menu farmer stats"}
+.footer-about{grid-area:about}
+.footer-menu{grid-area:menu}
+.footer-farmer{grid-area:farmer}
+.footer-stats{grid-area:stats}
 
-/* Tentang */
-.footer-brand{display:inline-flex;align-items:center;gap:12px;margin-bottom:1rem;text-decoration:none;color:#fff!important;font-weight:800;font-size:1.4rem}
-.footer-logo{height:48px;width:auto;max-width:120px;object-fit:contain;background:#fff;border-radius:14px;padding:6px;flex:none}
-.footer-about p{max-width:60ch;color:#eafcf0}
-.footer-note{color:#b9e8c8!important;font-size:.9rem}
-.footer-links{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:1rem}
-.footer-links a{text-decoration:none;font-weight:600;border-bottom:2px solid transparent;transition:border-color .2s}
-.footer-links a:hover{border-color:var(--g300)}
+/* Panel kaca: blur + opacity 30% */
+.footer-brand,.footer-desc,.footer-menu h3,.footer-stats h3,.footer-menu a,.footer-stats li,.footer-bottom{
+  background:var(--fg);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
 
-/* Petani */
-.footer-farmer{display:flex;align-items:flex-end;justify-content:center;min-height:180px}
-.footer-farmer img{width:auto;max-width:100%;max-height:clamp(180px,26vw,330px);object-fit:contain;
-  filter:drop-shadow(0 10px 18px rgba(0,0,0,.4));transform-origin:50% 100%;animation:sway 6s ease-in-out infinite}
-@keyframes sway{0%,100%{transform:rotate(-1.5deg)}50%{transform:rotate(1.5deg)}}
+/* ----- Tentang ----- */
+.footer-about{display:flex;flex-direction:column;align-items:flex-start;gap:.8em;min-width:0}
+.footer-brand{display:inline-flex;align-items:center;gap:.8em;max-width:100%;padding:.4em 1.3em .4em .4em;border-radius:99px;
+  border:1px solid rgba(255,255,255,.28);text-decoration:none;color:#fff!important;font-weight:800;font-size:1.5em;line-height:1.2}
+.footer-logo{height:2.1em;width:auto;max-width:5em;object-fit:contain;background:#fff;border-radius:.6em;padding:.25em;flex:none}
+.footer-desc{width:100%;padding:1em 1.2em;border-radius:1.2em;border:1px solid rgba(255,255,255,.25);
+  color:#fff;font-weight:600;line-height:1.55}
 
-/* Statistik (paling kanan) */
-.footer-stats h3{font-size:1.15rem;margin:0 0 .8rem}
-.footer-stats ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:minmax(0,1fr);gap:10px}
-.footer-stats li{display:flex;align-items:center;gap:12px;min-width:0;margin:0;padding:11px 14px;border-radius:14px;
-  background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);backdrop-filter:blur(4px)}
-.stat-ic{display:grid;place-items:center;flex:none;width:36px;height:36px;border-radius:10px;background:rgba(134,239,172,.2);color:var(--g300)}
-.stat-label{flex:1;min-width:0;font-size:.95rem;color:#eafcf0}
-.footer-stats strong{flex:none;font-size:1.3rem;font-weight:800;font-variant-numeric:tabular-nums}
-.live-dot{display:inline-block;width:8px;height:8px;margin-left:6px;border-radius:50%;background:#4ade80;vertical-align:middle;animation:pulse 1.8s ease-out infinite}
-@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(74,222,128,.7)}100%{box-shadow:0 0 0 10px rgba(74,222,128,0)}}
+/* Catatan "Hasil bersifat indikasi awal..." */
+.footer-note{position:relative;display:flex;align-items:center;gap:.9em;width:100%;overflow:hidden;
+  padding:.9em 1.1em .9em 1.3em;border-radius:1.2em;border:1px solid rgba(253,224,71,.55);
+  background:linear-gradient(120deg,rgba(251,191,36,.30),rgba(8,40,22,.30) 70%);
+  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+  color:#fff;font-weight:600;font-size:.95em;line-height:1.5}
+.footer-note::before{content:"";position:absolute;left:0;top:0;bottom:0;width:.35em;background:linear-gradient(180deg,#fde047,#f59e0b)}
+.fn-ico{position:relative;display:grid;place-items:center;flex:none;width:2.6em;height:2.6em;border-radius:50%;
+  background:linear-gradient(135deg,#fde047,#f59e0b);color:#78350f;text-shadow:none}
+.fn-ico svg{width:1.4em;height:1.4em}
+.fn-ico::after{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid #fde047;animation:fnring 2.4s ease-out infinite}
+@keyframes fnring{from{transform:scale(1);opacity:.8}to{transform:scale(1.8);opacity:0}}
+.fn-txt{min-width:0}
+.fn-tag{display:inline-block;margin-bottom:.3em;padding:.1em .85em;border-radius:99px;background:#fde047;color:#78350f;
+  font-size:.78em;font-weight:800;letter-spacing:.08em;text-transform:uppercase;text-shadow:none}
+.fn-txt strong{color:#fde68a;font-weight:800}
 
-/* Bar bawah */
-.footer-bottom{margin-top:clamp(20px,3vw,32px);padding:16px 0 calc(16px + env(safe-area-inset-bottom));border-top:1px solid rgba(255,255,255,.2);background:rgba(0,0,0,.25)}
-.footer-bottom p{margin:0;font-size:.9rem;color:#d6f7e1}
+/* ----- Judul kolom (chip kaca) ----- */
+.footer-menu h3,.footer-stats h3{display:inline-block;margin-bottom:.7em;padding:.3em 1.1em;border-radius:99px;
+  border:1px solid rgba(255,255,255,.28);color:#fff;font-size:1.1em;font-weight:800}
 
+/* ----- Tautan cepat (menurun, tiap tautan punya ikon berbeda) ----- */
+.footer-menu{min-width:0}
+.footer-menu ul{list-style:none;margin:0;padding:0;display:grid;gap:.6em}
+.footer-menu li{margin:0}
+.footer-menu a{display:flex;align-items:center;gap:.8em;padding:.55em .9em .55em .6em;border-radius:1em;
+  border:1px solid rgba(255,255,255,.28);text-decoration:none;color:#fff;font-weight:700;
+  transition:transform .2s,background .2s,border-color .2s}
+.footer-menu a:hover{transform:translateX(.35em);background:rgba(8,40,22,.5);border-color:rgba(255,255,255,.55)}
+.footer-menu a:focus-visible{outline:3px solid #86efac;outline-offset:2px}
+.fm-ic{display:grid;place-items:center;flex:none;width:2.2em;height:2.2em;border-radius:.7em;color:#fff;
+  background:linear-gradient(135deg,var(--c1),var(--c2));box-shadow:0 .25em .6em rgba(0,0,0,.28);text-shadow:none}
+.fm-ic svg{width:1.2em;height:1.2em}
+.fm-t{flex:1;min-width:0;font-size:.95em}
+.fm-go{flex:none;width:1em;height:1em;opacity:.7;transition:transform .2s,opacity .2s}
+.footer-menu a:hover .fm-go{transform:translateX(.25em);opacity:1}
+
+/* ----- Petani: gerakan lebih terlihat ----- */
+.footer-farmer{position:relative;display:flex;align-items:flex-end;justify-content:center;min-width:0;padding-top:1.4em}
+.footer-farmer img{position:relative;z-index:1;width:auto;max-width:100%;height:auto;max-height:21em;object-fit:contain;
+  filter:drop-shadow(0 .6em 1em rgba(0,0,0,.45));transform-origin:50% 100%;will-change:transform;
+  animation:fmove 4.2s ease-in-out infinite}
+.farmer-shadow{position:absolute;left:50%;bottom:-.3em;width:60%;height:1.1em;translate:-50% 0;border-radius:50%;
+  background:radial-gradient(closest-side,rgba(0,0,0,.55),transparent);animation:fshade 4.2s ease-in-out infinite}
+@keyframes fmove{0%,100%{transform:rotate(-3.5deg) translateY(0)}25%{transform:rotate(0) translateY(-.9em)}
+  50%{transform:rotate(3.5deg) translateY(0)}75%{transform:rotate(0) translateY(-.9em)}}
+@keyframes fshade{0%,50%,100%{transform:scaleX(1);opacity:.75}25%,75%{transform:scaleX(.72);opacity:.4}}
+
+/* ----- Statistik (paling kanan) ----- */
+.footer-stats{min-width:0}
+.footer-stats ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:minmax(0,1fr);gap:.6em}
+.footer-stats li{display:flex;align-items:center;gap:.8em;min-width:0;margin:0;padding:.65em 1em;border-radius:1em;
+  border:1px solid rgba(255,255,255,.28);background:rgba(8,40,22,.4)}
+.stat-ic{display:grid;place-items:center;flex:none;width:2.2em;height:2.2em;border-radius:.7em;
+  background:rgba(134,239,172,.25);color:#bbf7d0;text-shadow:none}
+.stat-ic svg{width:1.2em;height:1.2em}
+.stat-label{flex:1;min-width:0;font-size:.95em;font-weight:700;color:#fff}
+.footer-stats strong{flex:none;font-size:1.3em;font-weight:800;font-variant-numeric:tabular-nums}
+
+/* ----- Hak cipta ----- */
+.footer-bottom{position:relative;margin-top:1.6em;padding:.9em 0 calc(.9em + env(safe-area-inset-bottom));
+  border-top:1px solid rgba(255,255,255,.3)}
+.footer-bottom::before{content:"";position:absolute;left:0;right:0;top:-1px;height:.22em;
+  background:linear-gradient(90deg,#22c55e,#38bdf8,#fbbf24,#fb7185,#a78bfa)}
+.footer-copy{display:flex;align-items:center;justify-content:center;gap:.8em;text-align:center;color:#fff;font-weight:700}
+.fc-logo{flex:none;height:2.2em;width:auto;max-width:4.5em;object-fit:contain;background:#fff;border-radius:.6em;padding:.25em;
+  box-shadow:0 .25em .6em rgba(0,0,0,.3)}
+.footer-copy b{color:#bbf7d0;font-weight:800}
+
+/* ----- Tablet & HP: tinggi bebas ----- */
 @media (max-width:1000px){
-  .footer-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
-  .footer-farmer{order:3;grid-column:1/-1}
+  .site-footer{font-size:15px}
+  .footer-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-areas:"about about" "menu stats" "farmer farmer"}
+  .footer-farmer img{max-height:18em}
 }
 @media (max-width:640px){
-  .footer-grid{grid-template-columns:minmax(0,1fr)}
+  .site-footer{font-size:14px}
+  .footer-grid{grid-template-columns:minmax(0,1fr);grid-template-areas:"about" "menu" "stats" "farmer"}
   .footer-stats ul{grid-template-columns:repeat(2,minmax(0,1fr))}
   .footer-stats li:last-child{grid-column:1/-1}
-  .footer-stats li{flex-wrap:wrap;gap:8px}
-  .stat-label{flex:1 1 60px}
+  .footer-stats li{flex-wrap:wrap;gap:.5em}
+  .stat-label{flex:1 1 4em}
+  .footer-copy{flex-direction:column;gap:.4em}
 }
