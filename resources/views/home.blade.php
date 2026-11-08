@@ -5,12 +5,14 @@
 @push('styles')
     <link rel="stylesheet" href="{{ asset('css/history.css') }}?v=7">
     <link rel="stylesheet" href="{{ asset('css/recent.css') }}?v=1">
-    <link rel="stylesheet" href="{{ asset('css/diseases.css') }}?v=1">
+    <link rel="stylesheet" href="{{ asset('css/diseases.css') }}?v=2">
+    <link rel="stylesheet" href="{{ asset('css/cara.css') }}?v=4">
 @endpush
 
 @push('scripts')
     <script src="{{ asset('js/recent.js') }}?v=1"></script>
     <script src="{{ asset('js/diseases.js') }}?v=1"></script>
+    <script src="{{ asset('js/cara.js') }}?v=3"></script>
 @endpush
 
 @section('content')
@@ -73,93 +75,7 @@
     </div>
 </section>
 
-<section class="section">
-    <div class="container">
-        <div class="section-intro reveal">
-            <span class="eyebrow">Cara kerja</span>
-            <h2 class="section-title">Tiga langkah menuju diagnosis</h2>
-            <p>Dari foto sampai rekomendasi, semuanya otomatis. Pilih langkah untuk melihat detailnya.</p>
-        </div>
-
-        <div class="flow reveal" id="flow">
-            <div class="flow-steps" role="tablist" aria-label="Langkah kerja">
-                <button type="button" class="flow-step active" role="tab" id="flow-tab-0" aria-selected="true" aria-controls="flow-panel-0">
-                    <span class="flow-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></span>
-                    <span class="flow-txt"><span class="flow-no">Langkah 1</span><span class="flow-name">Unggah foto</span></span>
-                </button>
-                <button type="button" class="flow-step" role="tab" id="flow-tab-1" aria-selected="false" aria-controls="flow-panel-1" tabindex="-1">
-                    <span class="flow-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><line x1="7" y1="12" x2="17" y2="12"/></svg></span>
-                    <span class="flow-txt"><span class="flow-no">Langkah 2</span><span class="flow-name">Analisis otomatis</span></span>
-                </button>
-                <button type="button" class="flow-step" role="tab" id="flow-tab-2" aria-selected="false" aria-controls="flow-panel-2" tabindex="-1">
-                    <span class="flow-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="8" height="4" x="8" y="2" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="m9 14 2 2 4-4"/></svg></span>
-                    <span class="flow-txt"><span class="flow-no">Langkah 3</span><span class="flow-name">Terima rekomendasi</span></span>
-                </button>
-            </div>
-
-            <div class="flow-bar" aria-hidden="true"><span></span></div>
-
-            <article class="flow-panel active" id="flow-panel-0" role="tabpanel" aria-labelledby="flow-tab-0">
-                <div class="flow-visual">
-                    <svg viewBox="0 0 200 160" fill="none" aria-hidden="true">
-                        <rect x="20" y="30" width="160" height="110" rx="16" fill="#fff" stroke="#16a34a" stroke-width="3" stroke-dasharray="8 8"/>
-                        <g class="anim-bounce"><path d="M100 112V62M78 82l22-22 22 22" stroke="#16a34a" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></g>
-                    </svg>
-                </div>
-                <div class="flow-info">
-                    <h3>Unggah foto daun padi</h3>
-                    <p>Pilih foto dari galeri atau ambil langsung dari kamera HP. Format JPG, PNG, dan WEBP hingga 8 MB diterima.</p>
-                    <ul>
-                        <li>Seret dan lepas foto ke area unggah</li>
-                        <li>Pratinjau tampil sebelum dianalisis</li>
-                        <li>Foto dekat, terang, dan berlatar polos memberi hasil terbaik</li>
-                    </ul>
-                </div>
-            </article>
-
-            <article class="flow-panel" id="flow-panel-1" role="tabpanel" aria-labelledby="flow-tab-1">
-                <div class="flow-visual">
-                    <svg viewBox="0 0 200 160" fill="none" aria-hidden="true">
-                        <path d="M30 130C30 70 80 30 168 26C172 100 130 140 30 130Z" fill="#bbf7d0" stroke="#16a34a" stroke-width="4" stroke-linejoin="round"/>
-                        <path d="M40 126C80 92 110 66 152 38" stroke="#16a34a" stroke-width="4" stroke-linecap="round"/>
-                        <circle cx="104" cy="82" r="6" fill="#92400e" opacity=".75"/>
-                        <circle cx="128" cy="62" r="4" fill="#92400e" opacity=".75"/>
-                        <circle cx="84" cy="104" r="4" fill="#92400e" opacity=".75"/>
-                        <rect class="anim-scan" x="24" y="20" width="152" height="4" rx="2" fill="#22c55e"/>
-                    </svg>
-                </div>
-                <div class="flow-info">
-                    <h3>Analisis otomatis</h3>
-                    <p>Foto diperkecil menjadi 64×64 piksel, lalu rata-rata warna biru, hijau, dan merah dihitung. Model Random Forest yang terdiri dari 100 pohon keputusan menentukan penyakitnya.</p>
-                    <ul>
-                        <li>Pengolahan foto sama persis dengan saat model dilatih</li>
-                        <li>Setiap pohon memberi suara, hasilnya berupa peluang tiap penyakit</li>
-                        <li>Prosesnya hanya beberapa detik</li>
-                    </ul>
-                </div>
-            </article>
-
-            <article class="flow-panel" id="flow-panel-2" role="tabpanel" aria-labelledby="flow-tab-2">
-                <div class="flow-visual">
-                    <svg viewBox="0 0 200 160" fill="none" aria-hidden="true">
-                        <circle cx="100" cy="80" r="44" stroke="#dcfce7" stroke-width="12"/>
-                        <circle class="anim-ring" cx="100" cy="80" r="44" stroke="#16a34a" stroke-width="12" stroke-linecap="round"/>
-                        <path d="M82 80l13 13 25-27" stroke="#16a34a" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </div>
-                <div class="flow-info">
-                    <h3>Terima rekomendasi</h3>
-                    <p>Lihat penyakit yang terdeteksi, tingkat keyakinan, kondisi tanaman, dan langkah penanganan yang disarankan. Hasil otomatis tersimpan di riwayat.</p>
-                    <ul>
-                        <li>Tingkat keyakinan dalam persen</li>
-                        <li>Tindakan rekomendasi dan ciri-ciri penyakit</li>
-                        <li>Riwayat dapat dibuka kembali kapan saja</li>
-                    </ul>
-                </div>
-            </article>
-        </div>
-    </div>
-</section>
+@include('partials.howto')
 @include('partials.diseases', ['diseases' => $diseases])
 @include('partials.recent', ['recent' => $recent, 'total' => $total])
 @endsection

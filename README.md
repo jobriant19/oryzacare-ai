@@ -112,6 +112,7 @@ oryzacare-ai/
 │   │   ├── detect.css                    # Gaya halaman Deteksi (kartu ketentuan, tips, kartu penyakit)
 │   │   ├── history.css                   # Gaya halaman Riwayat (pencarian, filter, kartu, indikator halaman)
 │   │   ├── diseases.css                  # Gaya Jenis penyakit di Beranda (kartu bergaris bergerak)
+│   │   ├── cara.css                      # Gaya Cara pakai di Beranda (tab, animasi tiap langkah, garis waktu)
 │   │   └── recent.css                    # Gaya Analisis terbaru dan Catatan penting di Beranda
 │   ├── js/
 │   │   ├── padi.js                       # Cara kerja, animasi scroll, form deteksi
@@ -121,11 +122,16 @@ oryzacare-ai/
 │   │   ├── fit.js                        # Dipanggil halaman Deteksi (detect.blade.php)
 │   │   ├── history.js                    # Pencarian, 4 kartu per halaman + indikator
 │   │   ├── diseases.js                   # Tinggi layar dan efek muncul Jenis penyakit di Beranda
+│   │   ├── cara.js                       # Perpindahan langkah otomatis berputar (1 → 2 → 3 → 1) dan tinggi layar
 │   │   └── recent.js                     # Tinggi layar dan penanda foto rusak di Beranda
 │   ├── images/
 │   │   ├── logo.png                      # Logo dan ikon tab browser
 │   │   ├── bgfooter.jpg                  # Latar footer (736 x 414)
 │   │   ├── farmer.png                    # Ilustrasi petani di footer
+│   │   ├── notfound.png                  # Maskot mencari (Cara pakai langkah 2, riwayat kosong)
+│   │   ├── padi.png                      # Maskot padi (Cara pakai langkah 1 dan 2)
+│   │   ├── padisakit.png                 # Maskot sakit (Cara pakai langkah 2)
+│   │   ├── padisehat.png                 # Maskot sehat (Cara pakai langkah 3)
 │   │   └── penyakit/                     # (opsional) foto contoh: Blast.jpg, Tungro.jpg, dst.
 │   └── uploads/analisis/                 # Foto hasil unggahan pengguna (dibuat otomatis)
 │
@@ -143,6 +149,7 @@ oryzacare-ai/
 │       │   ├── footer.blade.php          # Footer + statistik pengunjung
 │       │   ├── history-card.blade.php    # Kartu riwayat (dipakai Riwayat dan Beranda)
 │       │   ├── diseases.blade.php        # Jenis penyakit (Beranda)
+│       │   ├── howto.blade.php           # Cara pakai: tiga langkah (Beranda)
 │       │   └── recent.blade.php          # Analisis terbaru + Catatan penting (Beranda)
 │       ├── pagination/padi.blade.php     # Tampilan paginasi kustom
 │       ├── home.blade.php                # Beranda

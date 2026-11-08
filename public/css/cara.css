@@ -1,0 +1,378 @@
+/* ===== Beranda: Cara pakai — satu layar penuh tanpa scroll ===== */
+.cp{position:relative;overflow-x:clip;scroll-margin-top:var(--hh,73px);
+  background:radial-gradient(50em 16em at 50% 0,rgba(186,230,253,.4),transparent 70%);
+  height:calc(100vh - var(--hh,73px));height:calc(100svh - var(--hh,73px));
+  padding-block:clamp(10px,2vh,22px);
+  font-size:clamp(10.5px,1.75vh,19px);line-height:1.45}
+.cp-in{height:100%;min-height:0;display:flex;flex-direction:column;gap:.8em}
+.cp h2,.cp h3,.cp p,.cp ul{margin:0}
+
+/* ----- Judul ----- */
+.cp-head{position:relative;isolation:isolate;flex:none;display:flex;flex-direction:column;align-items:center;gap:.4em;text-align:center}
+.cp-head::before{content:"";position:absolute;left:50%;top:50%;z-index:-1;width:min(48em,92%);height:9em;
+  transform:translate(-50%,-50%);pointer-events:none;
+  background:radial-gradient(closest-side,rgba(186,230,253,.65),rgba(134,239,172,.28) 60%,transparent)}
+.cp-eyebrow{position:relative;overflow:hidden;display:inline-flex;align-items:center;gap:.55em;padding:.25em 1.1em .25em .3em;
+  border-radius:99px;background:#fff;border:1px solid #bae6fd;color:#075985;font-size:.8em;font-weight:800;
+  letter-spacing:.1em;text-transform:uppercase;box-shadow:var(--shadow)}
+.cp-eyebrow i{position:relative;display:grid;place-items:center;width:1.9em;height:1.9em;border-radius:50%;color:#fff;
+  background:linear-gradient(135deg,#0ea5e9,#2563eb)}
+.cp-eyebrow i::after{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid #0ea5e9;animation:cpring 2.2s ease-out infinite}
+@keyframes cpring{from{transform:scale(1);opacity:.8}to{transform:scale(1.9);opacity:0}}
+.cp-eyebrow svg{width:1.05em;height:1.05em}
+.cp-eyebrow::after{content:"";position:absolute;top:0;bottom:0;left:-60%;width:35%;transform:skewX(-20deg);pointer-events:none;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.8),transparent);animation:cpshine 4s ease-in-out infinite}
+@keyframes cpshine{0%,60%{left:-60%}100%{left:140%}}
+
+.cp-titlewrap{position:relative;display:inline-block;padding-inline:3.4em}
+.cp .cp-title{font-size:2.2em;line-height:1.15;color:var(--g900);letter-spacing:-.01em}
+.cp .cp-title em{font-style:normal;background:linear-gradient(90deg,#0ea5e9,#16a34a,#f59e0b,#0ea5e9);background-size:200% 100%;
+  -webkit-background-clip:text;background-clip:text;color:transparent;animation:cphue 6s linear infinite}
+@keyframes cphue{to{background-position:200% 0}}
+
+/* Ikon kiri-kanan judul: hanya ikon, tanpa kotak dan tanpa titik-titik */
+.cp-ico{position:absolute;top:50%;width:2.3em;height:2.3em;margin-top:-1.15em;
+  filter:drop-shadow(0 .25em .3em rgba(0,0,0,.18));animation:cptile 3.8s ease-in-out infinite}
+.cp-ico svg{display:block;width:100%;height:100%}
+.cp-ico-l{left:0;--r:-8deg;color:#0ea5e9}
+.cp-ico-r{right:0;--r:8deg;color:#16a34a;animation-delay:-1.9s}
+@keyframes cptile{0%,100%{transform:translateY(0) rotate(var(--r))}50%{transform:translateY(-.4em) rotate(calc(var(--r) * -.4))}}
+
+/* ----- Kartu utama ----- */
+.cp-card{flex:1;min-height:0;display:flex;flex-direction:column;gap:.7em;padding:.9em 1em 1em;
+  background:#fff;border:1px solid var(--line);border-radius:1.6em;box-shadow:var(--shadow)}
+
+/* ----- Tab langkah ----- */
+.cp-tabs{flex:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.8em}
+.cp-tab,.cp-panel{--a1:#0ea5e9;--a2:#2563eb}
+.cp-tab[data-step="2"],.cp-panel[data-step="2"]{--a1:#f59e0b;--a2:#d97706}
+.cp-tab[data-step="3"],.cp-panel[data-step="3"]{--a1:#22c55e;--a2:#15803d}
+.cp-tab{position:relative;display:flex;align-items:center;gap:.8em;min-width:0;padding:.55em .9em;
+  border:2px solid var(--line);border-radius:1.1em;background:var(--g50);color:var(--g900);font:inherit;text-align:left;cursor:pointer;
+  transition:transform .2s,border-color .2s,box-shadow .2s}
+.cp-tab:hover{transform:translateY(-.15em);border-color:var(--a1)}
+.cp-tab:focus-visible{outline:3px solid var(--g300);outline-offset:2px}
+.cp-tab.is-active{border-color:transparent;color:#fff;background:linear-gradient(120deg,var(--a1),var(--a2));
+  box-shadow:0 .5em 1.2em color-mix(in srgb,var(--a2) 40%,transparent)}
+.cp-no{display:grid;place-items:center;flex:none;width:2.7em;height:2.7em;border-radius:.85em;background:#fff;color:var(--a2);
+  box-shadow:0 .2em .5em rgba(0,0,0,.1);transition:background .2s,color .2s}
+.cp-no svg{width:1.4em;height:1.4em}
+.cp-tab.is-active .cp-no{background:rgba(255,255,255,.22);color:#fff;box-shadow:none}
+.cp-txt{display:flex;flex-direction:column;min-width:0}
+.cp-txt em{font-style:normal;font-size:.72em;font-weight:800;letter-spacing:.08em;text-transform:uppercase;opacity:.75}
+.cp-txt b{font-size:1.1em;font-weight:800;line-height:1.2}
+.cp-txt small{font-size:.8em;font-weight:600;line-height:1.3;color:var(--muted)}
+.cp-tab.is-active .cp-txt small{color:rgba(255,255,255,.9)}
+
+/* ----- Garis waktu (satu bar, diisi CSS di compositor agar halus) ----- */
+.cp-bar{flex:none;height:.4em;border-radius:99px;background:var(--g100);overflow:hidden}
+.cp-bar i{display:block;width:100%;height:100%;border-radius:inherit;transform:scaleX(0);transform-origin:0 50%;
+  will-change:transform;background:linear-gradient(90deg,#38bdf8,#2563eb)}
+.cp-card[data-cur="2"] .cp-bar i{background:linear-gradient(90deg,#fbbf24,#d97706)}
+.cp-card[data-cur="3"] .cp-bar i{background:linear-gradient(90deg,#4ade80,#15803d)}
+.cp-bar i.run{animation:cpfill var(--bd,8s) linear forwards}
+@keyframes cpfill{to{transform:scaleX(1)}}
+
+/* Semua animasi berjeda bersamaan (bagian di luar layar / tab tersembunyi) agar tetap sinkron */
+.cp-card.is-paused *,.cp-card.is-paused *::before,.cp-card.is-paused *::after{animation-play-state:paused!important}
+.cp-card.cp-snap .cp-panel{transition:none!important}
+
+/* ----- Panel: tiga panel bertumpuk, yang aktif tampil (tanpa display:none agar tidak tersendat) ----- */
+.cp-stage{position:relative;flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr)}
+.cp-panel{grid-area:1/1;min-width:0;min-height:0;display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);
+  grid-template-rows:minmax(0,1fr);gap:clamp(1em,2.5vw,2.4em);
+  visibility:hidden;opacity:0;pointer-events:none;transition:opacity .35s ease,visibility 0s .35s}
+.cp-panel.is-active{visibility:visible;opacity:1;pointer-events:auto;transition:opacity .35s ease}
+.cp-panel.is-active .cp-info{animation:cprise .55s ease both}
+@keyframes cprise{from{opacity:0;transform:translateY(1em)}}
+
+/* ----- Area animasi ----- */
+.cp-visual{position:relative;min-height:0;overflow:hidden;container-type:size;border-radius:1.4em;
+  background:radial-gradient(circle at 50% 60%,color-mix(in srgb,var(--a1) 24%,#fff),color-mix(in srgb,var(--a1) 7%,#fff) 72%);
+  border:1px solid color-mix(in srgb,var(--a1) 28%,#fff)}
+/* Panggung persegi: 1em = 1/30 sisi, semua ukuran di dalamnya ikut skala */
+.cp-sq{position:absolute;left:50%;top:50%;width:min(100cqw,100cqh);height:min(100cqw,100cqh);translate:-50% -50%;
+  font-size:calc(min(100cqw,100cqh) / 30);line-height:1.3}
+@supports not (width:1cqw){.cp-sq{left:0;top:0;width:100%;height:100%;translate:none;font-size:15px}}
+
+.cp-ground{position:absolute;left:7em;top:22em;width:16em;height:2.4em;border-radius:50%;
+  background:radial-gradient(closest-side,rgba(20,83,45,.26),transparent)}
+.cp-float{position:absolute;left:3em;top:2.2em;width:24em;height:22.5em;will-change:transform}
+.cp-panel.is-active .cp-float{animation:cpfloat 5s ease-in-out infinite}
+@keyframes cpfloat{50%{transform:translateY(-.7em)}}
+
+/* Pil keterangan di dasar */
+.cp-pill{position:absolute;left:50%;bottom:.7em;translate:-50% 0;display:inline-flex;align-items:center;gap:.5em;
+  padding:.5em 1.2em;border-radius:99px;font-weight:800;white-space:nowrap;box-shadow:0 .4em 1em rgba(0,0,0,.14);
+  will-change:transform,opacity}
+.cp-pill span{font-size:.85em}
+.cp-pill svg{flex:none;width:1.1em;height:1.1em}
+.cp-spin{animation:cpspin 1s linear infinite}
+@keyframes cpspin{to{transform:rotate(360deg)}}
+.cp-ck{display:grid;place-items:center;flex:none;width:1.5em;height:1.5em;border-radius:50%;background:#22c55e;color:#fff}
+.cp-ck svg{width:.95em;height:.95em}
+
+/* ================= LANGKAH 1: unggah foto (padi.png) ================= */
+.p1-zone{position:absolute;left:4em;top:7.5em;width:22em;height:13em;border-radius:2em;background:rgba(255,255,255,.82);
+  box-shadow:0 1em 2.4em rgba(14,165,233,.18)}
+.p1-zone::before,.p1-zone::after{content:"";position:absolute;inset:0;border-radius:inherit;border:.28em dashed #38bdf8;will-change:opacity}
+.p1-zone::after{border-color:#22c55e}
+.p1-zone::before{opacity:0}
+.p1-drop{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.6em;
+  opacity:0;will-change:transform,opacity}
+.p1-ic{width:6em;height:6em;color:#0ea5e9;will-change:transform}
+.p1-drop b{font-size:1.1em;color:#0369a1;font-weight:800;letter-spacing:.01em}
+
+.p1-flyx{position:absolute;left:10.5em;top:8.8em;width:9em;height:10.4em;will-change:transform,opacity}
+.p1-flyy{width:100%;height:100%;will-change:transform}
+.p1-photo{position:relative;width:100%;height:100%;padding:.55em .55em 1.9em;border-radius:1em;background:#fff;
+  box-shadow:0 1em 2em rgba(14,60,100,.25);will-change:transform}
+.p1-photo::before{content:"";position:absolute;left:50%;top:-.5em;width:3.4em;height:1.1em;translate:-50% 0;rotate:-4deg;
+  background:rgba(253,224,71,.8);border-radius:.15em;z-index:2}
+.p1-img{position:relative;width:100%;height:100%;overflow:hidden;border-radius:.6em;background:linear-gradient(160deg,#dcfce7,#bae6fd)}
+.p1-img img{width:100%;height:100%;object-fit:contain}
+.p1-shine{position:absolute;top:0;bottom:0;left:0;width:45%;transform:translateX(-130%) skewX(-18deg);will-change:transform;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.75),transparent)}
+.p1-cap{position:absolute;left:0;right:0;bottom:.5em;text-align:center;color:#64748b;font-size:.6em;font-weight:700;letter-spacing:.04em}
+.p1-rip{position:absolute;left:12em;top:11em;width:6em;height:6em;border-radius:50%;border:.22em solid #22c55e;opacity:0;will-change:transform,opacity}
+.p1-dot{position:absolute;left:14.6em;top:13.6em;width:.8em;height:.8em;border-radius:50%;background:var(--c);opacity:0;will-change:transform,opacity}
+.p1-dot:nth-of-type(1){--c:#38bdf8;--dx:-10em;--dy:-7em}
+.p1-dot:nth-of-type(2){--c:#22c55e;--dx:10em;--dy:-7em}
+.p1-dot:nth-of-type(3){--c:#f59e0b;--dx:-12em;--dy:1em}
+.p1-dot:nth-of-type(4){--c:#a855f7;--dx:12em;--dy:1em}
+.p1-dot:nth-of-type(5){--c:#ef4444;--dx:-8em;--dy:8em}
+.p1-dot:nth-of-type(6){--c:#0ea5e9;--dx:8em;--dy:8em}
+.p1-prog{position:absolute;left:7em;top:22.9em;width:16em;height:.9em;border-radius:99px;background:#e0f2fe;overflow:hidden;opacity:0}
+.p1-prog i{display:block;width:100%;height:100%;border-radius:inherit;transform-origin:0 50%;will-change:transform;
+  background:linear-gradient(90deg,#38bdf8,#22c55e)}
+.p1-done{position:absolute;left:50%;top:21.9em;translate:-50% 0;display:inline-flex;align-items:center;gap:.55em;
+  padding:.5em 1.3em .5em .7em;border-radius:99px;background:linear-gradient(120deg,#22c55e,#15803d);color:#fff;font-weight:800;
+  white-space:nowrap;box-shadow:0 .5em 1.2em rgba(21,128,61,.4);will-change:transform,opacity}
+.p1-done span{font-size:.9em}
+.p1-done svg{width:1.3em;height:1.3em}
+.p1-ck{position:absolute;left:18.2em;top:7.4em;width:2.9em;height:2.9em;display:grid;place-items:center;border-radius:50%;
+  background:#22c55e;border:.22em solid #fff;color:#fff;box-shadow:0 .3em .8em rgba(21,128,61,.4);will-change:transform}
+.p1-ck svg{width:1.4em;height:1.4em}
+.p1-leaf{position:absolute;width:2.2em;height:2.2em;color:#22c55e;opacity:.8;will-change:transform}
+.p1-leaf.l1{left:1.2em;top:9em}.p1-leaf.l2{right:2em;top:5.5em;color:#0ea5e9}
+.p1-leaf.l3{right:1.8em;top:22em;color:#f59e0b}.p1-leaf.l4{left:2em;top:21em;color:#16a34a}
+
+.cp-panel.is-active .p1-zone::before{animation:p1zb var(--dur) both}
+.cp-panel.is-active .p1-zone::after{animation:p1za var(--dur) both}
+.cp-panel.is-active .p1-drop{animation:p1drop var(--dur) both}
+.cp-panel.is-active .p1-ic{animation:p1bounce 1.3s ease-in-out infinite}
+.cp-panel.is-active .p1-flyx{animation:p1fx var(--dur) cubic-bezier(.25,.8,.3,1) both}
+.cp-panel.is-active .p1-flyy{animation:p1fy var(--dur) cubic-bezier(.55,0,.85,.45) both}
+.cp-panel.is-active .p1-photo{animation:p1rot var(--dur) ease-out both}
+.cp-panel.is-active .p1-shine{animation:p1shine var(--dur) ease-in-out both}
+.cp-panel.is-active .p1-rip{animation:p1rip var(--dur) ease-out both}
+.cp-panel.is-active .p1-rip.r2{animation-name:p1rip2}
+.cp-panel.is-active .p1-dot{animation:p1dot var(--dur) cubic-bezier(.2,.8,.3,1) both}
+.cp-panel.is-active .p1-prog{animation:p1prog var(--dur) both}
+.cp-panel.is-active .p1-prog i{animation:p1fill var(--dur) ease-in-out both}
+.cp-panel.is-active .p1-done{animation:p1done var(--dur) cubic-bezier(.3,1.4,.5,1) both}
+.cp-panel.is-active .p1-ck{animation:p1ck var(--dur) cubic-bezier(.3,1.6,.5,1) both}
+.cp-panel.is-active .p1-leaf{animation:p1leaf 5s ease-in-out infinite}
+.cp-panel.is-active .p1-leaf.l2{animation-delay:-1.2s}.cp-panel.is-active .p1-leaf.l3{animation-delay:-2.4s}.cp-panel.is-active .p1-leaf.l4{animation-delay:-3.6s}
+
+@keyframes p1zb{0%,36%{opacity:1}40%,100%{opacity:0}}
+@keyframes p1za{0%,36%{opacity:0}40%,100%{opacity:1}}
+@keyframes p1drop{0%{opacity:0;transform:translateY(1em)}6%,28%{opacity:1;transform:none}36%,100%{opacity:0;transform:scale(.8)}}
+@keyframes p1bounce{50%{transform:translateY(-.7em)}}
+@keyframes p1fx{0%,5%{opacity:0;transform:translateX(-16em)}8%{opacity:1}34%,100%{opacity:1;transform:translateX(0)}}
+@keyframes p1fy{0%,5%{transform:translateY(-14em)}34%,100%{transform:translateY(0)}}
+@keyframes p1rot{0%,5%{transform:rotate(-28deg) scale(1.3)}34%{transform:rotate(5deg) scale(1)}
+  37%{transform:rotate(-2deg) scale(1.08,.9)}41%{transform:rotate(1deg) scale(.97,1.04)}45%,100%{transform:rotate(0) scale(1)}}
+@keyframes p1shine{0%,48%{transform:translateX(-130%) skewX(-18deg)}56%{transform:translateX(330%) skewX(-18deg)}
+  56.1%{transform:translateX(-130%) skewX(-18deg)}64%{transform:translateX(330%) skewX(-18deg)}
+  64.1%{transform:translateX(-130%) skewX(-18deg)}72%,100%{transform:translateX(330%) skewX(-18deg)}}
+@keyframes p1rip{0%,33%{opacity:0;transform:scale(.3)}35%{opacity:.8}52%,100%{opacity:0;transform:scale(4.2)}}
+@keyframes p1rip2{0%,37%{opacity:0;transform:scale(.3)}39%{opacity:.7}56%,100%{opacity:0;transform:scale(4.2)}}
+@keyframes p1dot{0%,34%{opacity:0;transform:translate(0,0) scale(.4)}37%{opacity:1}52%,100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(1)}}
+@keyframes p1prog{0%,46%{opacity:0}49%,74%{opacity:1}77%,100%{opacity:0}}
+@keyframes p1fill{0%,48%{transform:scaleX(0)}74%,100%{transform:scaleX(1)}}
+@keyframes p1done{0%,77%{opacity:0;transform:translateY(1em) scale(.85)}83%{opacity:1;transform:translateY(-.15em) scale(1.05)}87%,100%{opacity:1;transform:none}}
+@keyframes p1ck{0%,73%{transform:scale(0) rotate(-40deg)}79%{transform:scale(1.25) rotate(8deg)}84%,100%{transform:scale(1) rotate(0)}}
+@keyframes p1leaf{0%,100%{transform:translateY(0) rotate(-10deg)}50%{transform:translateY(-1.6em) rotate(14deg)}}
+
+/* Keadaan akhir (untuk "kurangi gerakan"): foto sudah mendarat, progres tersembunyi, pil selesai tampil */
+.p1-zone::before,.p1-drop,.p1-prog,.p1-rip,.p1-dot{opacity:0}
+
+/* ================= LANGKAH 2: padi.png -> notfound.png -> padisakit.png ================= */
+.p2-shake{position:absolute;inset:0}
+.p2-wA,.p2-wB,.p2-wB2,.p2-wC{position:absolute;inset:0;overflow:hidden}
+.p2-wA img,.p2-wB2 img,.p2-wC img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;
+  user-select:none;-webkit-user-drag:none;will-change:transform}
+.p2-wA,.p2-wB,.p2-wB2,.p2-wC{will-change:transform}
+/* keadaan akhir: padi.png tersingkir, notfound.png tersingkir, padisakit.png tampil */
+.p2-wA{transform:translateY(100%)}.p2-wA img{transform:translateY(-100%)}
+.p2-wB2{transform:translateY(-100%)}.p2-wB2 img{transform:translateY(100%)}
+
+.p2-edge{position:absolute;inset:0;pointer-events:none;opacity:0;will-change:transform,opacity}
+.p2-edge i{position:absolute;left:-4%;right:-4%;height:.45em;border-radius:99px}
+.p2-edge.eb i{bottom:0;margin-bottom:-.22em;background:linear-gradient(90deg,transparent,#fde68a 12%,#f59e0b 50%,#fde68a 88%,transparent);
+  box-shadow:0 0 1.2em .3em rgba(245,158,11,.6)}
+.p2-edge.eb i::before{content:"";position:absolute;left:4%;right:4%;bottom:100%;height:4em;background:linear-gradient(to top,rgba(245,158,11,.32),transparent)}
+.p2-edge.ec i{top:0;margin-top:-.22em;background:linear-gradient(90deg,transparent,#fecaca 12%,#ef4444 50%,#fecaca 88%,transparent);
+  box-shadow:0 0 1.2em .3em rgba(239,68,68,.6)}
+.p2-edge.ec i::before{content:"";position:absolute;left:4%;right:4%;top:100%;height:4em;background:linear-gradient(to bottom,rgba(239,68,68,.3),transparent)}
+
+.p2-cor{position:absolute;width:3.4em;height:3.4em;border:0 solid #f59e0b;opacity:0;will-change:transform,opacity}
+.p2-cor.c1{left:-.4em;top:-.4em;border-left-width:.3em;border-top-width:.3em;border-top-left-radius:.9em}
+.p2-cor.c2{right:-.4em;top:-.4em;border-right-width:.3em;border-top-width:.3em;border-top-right-radius:.9em}
+.p2-cor.c3{left:-.4em;bottom:-.4em;border-left-width:.3em;border-bottom-width:.3em;border-bottom-left-radius:.9em}
+.p2-cor.c4{right:-.4em;bottom:-.4em;border-right-width:.3em;border-bottom-width:.3em;border-bottom-right-radius:.9em}
+
+.p2-chip{position:absolute;display:inline-flex;align-items:center;gap:.5em;padding:.4em 1em .4em .75em;border-radius:99px;
+  background:var(--cb);border:2px solid var(--cl);color:var(--cf);font-weight:800;white-space:nowrap;
+  box-shadow:0 .4em 1em rgba(0,0,0,.12);will-change:transform,opacity}
+.p2-chip span{font-size:.8em}
+.p2-chip::before{content:"";flex:none;width:.7em;height:.7em;border-radius:50%;background:var(--cd)}
+.p2-chip.k1{left:.8em;top:7em;--cb:#fee2e2;--cl:#fca5a5;--cf:#991b1b;--cd:#ef4444}
+.p2-chip.k2{right:.8em;top:12em;--cb:#fef3c7;--cl:#fcd34d;--cf:#92400e;--cd:#f59e0b}
+.p2-chip.k3{left:1.4em;top:17.5em;--cb:#ffedd5;--cl:#fdba74;--cf:#9a3412;--cd:#f97316}
+
+.p2-pill.pa{background:#fff;color:#92400e;border:2px solid #f59e0b;opacity:0}
+.p2-pill.pb{background:#fff;color:#7c2d12;border:2px solid #f97316;opacity:0}
+.p2-pill.pc{background:linear-gradient(120deg,#ef4444,#b91c1c);color:#fff;border:2px solid transparent}
+
+.cp-panel.is-active .p2-wA{animation:p2wa var(--dur) cubic-bezier(.45,.05,.55,.95) both}
+.cp-panel.is-active .p2-wA img{animation:p2wai var(--dur) cubic-bezier(.45,.05,.55,.95) both}
+.cp-panel.is-active .p2-wB{animation:p2wb var(--dur) cubic-bezier(.45,.05,.55,.95) both}
+.cp-panel.is-active .p2-wB2{animation:p2wb2 var(--dur) cubic-bezier(.45,.05,.55,.95) both}
+.cp-panel.is-active .p2-wB2 img{animation:p2bi var(--dur) cubic-bezier(.45,.05,.55,.95) both}
+.cp-panel.is-active .p2-wC{animation:p2wc var(--dur) cubic-bezier(.45,.05,.55,.95) both}
+.cp-panel.is-active .p2-wC img{animation:p2wci var(--dur) cubic-bezier(.45,.05,.55,.95) both}
+.cp-panel.is-active .p2-edge.eb{animation:p2eb var(--dur) cubic-bezier(.45,.05,.55,.95) both}
+.cp-panel.is-active .p2-edge.ec{animation:p2ec var(--dur) cubic-bezier(.45,.05,.55,.95) both}
+.cp-panel.is-active .p2-cor{animation:p2cor var(--dur) ease-out both}
+.cp-panel.is-active .p2-shake{animation:p2shake var(--dur) ease-in-out both}
+
+.cp-panel.is-active .p2-chip{animation:p2chip .55s cubic-bezier(.3,1.5,.5,1) calc(var(--dur) * var(--t)) both}
+.cp-panel.is-active .p2-chip.k1{--t:.75}.cp-panel.is-active .p2-chip.k2{--t:.79}.cp-panel.is-active .p2-chip.k3{--t:.83}
+.cp-panel.is-active .p2-pill.pa{animation:p2pa var(--dur) both}
+.cp-panel.is-active .p2-pill.pb{animation:p2pb var(--dur) both}
+.cp-panel.is-active .p2-pill.pc{animation:p2pc var(--dur) both}
+
+@keyframes p2wa{0%,6%{transform:translateY(0)}40%,100%{transform:translateY(100%)}}
+@keyframes p2wai{0%,6%{transform:translateY(0)}40%,100%{transform:translateY(-100%)}}
+@keyframes p2wb{0%,6%{transform:translateY(-100%)}40%,100%{transform:translateY(0)}}
+@keyframes p2wb2{0%,6%{transform:translateY(100%)}40%,50%{transform:translateY(0)}72%,100%{transform:translateY(-100%)}}
+@keyframes p2bi{0%,50%{transform:translateY(0)}72%,100%{transform:translateY(100%)}}
+@keyframes p2wc{0%,50%{transform:translateY(100%)}72%,100%{transform:translateY(0)}}
+@keyframes p2wci{0%,50%{transform:translateY(-100%)}72%,100%{transform:translateY(0)}}
+@keyframes p2eb{0%,5%{opacity:0;transform:translateY(-100%)}6%{opacity:1;transform:translateY(-100%)}40%{opacity:1;transform:translateY(0)}42%,100%{opacity:0;transform:translateY(0)}}
+@keyframes p2ec{0%,49%{opacity:0;transform:translateY(100%)}50%{opacity:1;transform:translateY(100%)}72%{opacity:1;transform:translateY(0)}74%,100%{opacity:0;transform:translateY(0)}}
+@keyframes p2cor{0%{opacity:0;transform:scale(1.15)}4%,70%{opacity:1;transform:none}76%,100%{opacity:0;transform:none}}
+@keyframes p2shake{0%,71%{transform:none}73%{transform:rotate(-2.5deg) translateX(-.4em)}75%{transform:rotate(2.5deg) translateX(.4em)}
+  77%{transform:rotate(-1.8deg)}79%{transform:rotate(1.2deg)}81%,100%{transform:none}}
+
+@keyframes p2chip{0%{opacity:0;transform:scale(.5) translateY(.8em)}100%{opacity:1;transform:none}}
+@keyframes p2pa{0%{opacity:0;transform:translateY(.8em)}3%,38%{opacity:1;transform:none}42%,100%{opacity:0;transform:translateY(-.6em)}}
+@keyframes p2pb{0%,40%{opacity:0;transform:translateY(.8em)}44%,68%{opacity:1;transform:none}72%,100%{opacity:0;transform:translateY(-.6em)}}
+@keyframes p2pc{0%,72%{opacity:0;transform:translateY(.8em) scale(.9)}78%{opacity:1;transform:scale(1.06)}82%,100%{opacity:1;transform:none}}
+
+/* ================= LANGKAH 3: padisakit.png -> padisehat.png ================= */
+.p3-float img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;user-select:none;-webkit-user-drag:none}
+.p3-sick{opacity:0}
+.p3-glow,.p3-pulse{position:absolute;left:3em;top:2.2em;width:24em;height:22.5em;border-radius:50%;opacity:0;will-change:transform,opacity}
+.p3-glow{background:radial-gradient(circle,rgba(255,255,255,.95),rgba(134,239,172,.7) 42%,transparent 70%)}
+.p3-pulse{background:radial-gradient(circle,rgba(74,222,128,.5),transparent 68%)}
+.p3-ring{position:absolute;left:2.5em;top:.95em;width:25em;height:25em;will-change:transform,opacity}
+.p3-ring i{position:absolute;inset:0;border-radius:50%;border:.3em dashed rgba(34,197,94,.55);will-change:transform}
+.cp-panel.is-active .p3-ring i{animation:cpspin 16s linear infinite}
+
+.p3-chip{position:absolute;display:inline-flex;align-items:center;gap:.5em;padding:.4em .5em .4em .7em;border-radius:99px;
+  background:#fff;border:2px solid #86efac;color:var(--g900);font-weight:800;white-space:nowrap;
+  box-shadow:0 .4em 1em rgba(20,83,45,.16);opacity:0;will-change:transform,opacity}
+.p3-chip span.t{font-size:.8em}
+.p3-chip>svg{flex:none;width:1.2em;height:1.2em;color:#16a34a}
+.p3-c1{left:.5em;top:5.5em;--fx:-2.5em;--ta:.06;--tb:.36;--ax:9em;--ay:6.5em}
+.p3-c2{right:.5em;top:11.5em;--fx:2.5em;--ta:.16;--tb:.42;--ax:-8.5em;--ay:.5em}
+.p3-c3{left:.5em;top:18.5em;--fx:-2.5em;--ta:.26;--tb:.48;--ax:9em;--ay:-6.5em}
+
+.p3-badge{position:absolute;left:21.5em;top:3.2em;width:4.4em;height:4.4em;display:grid;place-items:center;border-radius:50%;
+  background:linear-gradient(135deg,#4ade80,#15803d);color:#fff;box-shadow:0 .5em 1.2em rgba(21,128,61,.45);will-change:transform}
+.p3-badge svg{width:2.4em;height:2.4em}
+.p3-badge::after{content:"";position:absolute;inset:0;border-radius:50%;border:.2em solid #4ade80;opacity:0}
+.cp-panel.is-active .p3-badge::after{animation:cpring 2s ease-out calc(var(--dur) * .72) infinite}
+
+.p3-cf{position:absolute;left:14.6em;top:14em;width:.8em;height:1.3em;border-radius:.2em;background:var(--c);opacity:0;will-change:transform,opacity}
+.p3-cf.o{width:1em;height:1em;border-radius:50%}
+.p3-leaves{will-change:opacity}
+.p3-leaf{position:absolute;width:2.2em;height:2.2em;color:#22c55e;opacity:.85;will-change:transform}
+.p3-leaf.l1{left:1.5em;top:11em}.p3-leaf.l2{right:1.5em;top:20em;color:#16a34a}
+.p3-leaf.l3{left:3em;top:22em;color:#4ade80}.p3-leaf.l4{right:2.5em;top:3.4em;color:#86efac}
+
+.p3-pill.pa{background:#fff;color:#166534;border:2px solid #22c55e;opacity:0}
+.p3-pill.pb{background:linear-gradient(120deg,#22c55e,#15803d);color:#fff;border:2px solid transparent}
+
+.cp-panel.is-active .p3-sick{animation:p3sick var(--dur) ease-in-out both}
+.cp-panel.is-active .p3-ok{animation:p3ok var(--dur) cubic-bezier(.3,1.3,.5,1) both}
+.cp-panel.is-active .p3-glow{animation:p3glow var(--dur) ease-out both}
+.cp-panel.is-active .p3-pulse{animation:p3pulse 1s ease-out calc(var(--dur) * var(--tp)) both}
+.cp-panel.is-active .p3-pulse.u1{--tp:.445}.cp-panel.is-active .p3-pulse.u2{--tp:.505}.cp-panel.is-active .p3-pulse.u3{--tp:.565}
+.cp-panel.is-active .p3-ring{animation:p3ringin var(--dur) ease-out both}
+
+.cp-panel.is-active .p3-chip{animation:p3in .55s cubic-bezier(.3,1.5,.5,1) calc(var(--dur) * var(--ta)) both,
+  p3abs .8s cubic-bezier(.55,0,.85,.4) calc(var(--dur) * var(--tb)) forwards}
+.cp-panel.is-active .p3-chip .cp-ck{animation:p3ck .45s cubic-bezier(.3,1.6,.5,1) calc(var(--dur) * var(--ta) + .5s) both}
+.cp-panel.is-active .p3-badge{animation:p3pop .7s cubic-bezier(.3,1.6,.5,1) calc(var(--dur) * .68) both}
+.cp-panel.is-active .p3-cf{animation:p3cf 2.8s cubic-bezier(.2,.7,.3,1) calc(var(--dur) * .62 + var(--d)) both}
+.cp-panel.is-active .p3-leaves{animation:p3lv var(--dur) ease-out both}
+.cp-panel.is-active .p3-leaf{animation:p1leaf 4.5s ease-in-out infinite}
+.cp-panel.is-active .p3-leaf.l2{animation-delay:-1.1s}.cp-panel.is-active .p3-leaf.l3{animation-delay:-2.2s}.cp-panel.is-active .p3-leaf.l4{animation-delay:-3.3s}
+.cp-panel.is-active .p3-pill.pa{animation:p3pa var(--dur) both}
+.cp-panel.is-active .p3-pill.pb{animation:p3pb var(--dur) cubic-bezier(.3,1.4,.5,1) both}
+
+@keyframes p3sick{0%,60%{opacity:1}68%,100%{opacity:0}}
+@keyframes p3ok{0%,60%{opacity:0;transform:scale(.88)}68%{opacity:1;transform:scale(1.07)}74%,100%{opacity:1;transform:none}}
+@keyframes p3glow{0%,58%{opacity:0;transform:scale(.3)}64%{opacity:1;transform:scale(1)}78%,100%{opacity:0;transform:scale(1.7)}}
+@keyframes p3pulse{0%{opacity:0;transform:scale(.5)}35%{opacity:.6}100%{opacity:0;transform:scale(1.12)}}
+@keyframes p3ringin{0%,64%{opacity:0;transform:scale(.8)}76%,100%{opacity:1;transform:scale(1)}}
+
+@keyframes p3in{0%{opacity:0;transform:translateX(var(--fx)) scale(.7)}100%{opacity:1;transform:none}}
+@keyframes p3abs{0%{opacity:1;transform:none}85%{opacity:1}100%{opacity:0;transform:translate(var(--ax),var(--ay)) scale(.2)}}
+@keyframes p3ck{from{transform:scale(0)}}
+@keyframes p3pop{0%{transform:scale(0) rotate(-30deg)}100%{transform:scale(1) rotate(0)}}
+@keyframes p3cf{0%{opacity:0;transform:translate(0,0) rotate(0) scale(.3)}8%{opacity:1}
+  40%{transform:translate(calc(var(--dx) * .8),var(--uy)) rotate(calc(var(--r) * .5)) scale(1)}
+  100%{opacity:0;transform:translate(var(--dx),var(--dy)) rotate(var(--r)) scale(.9)}}
+@keyframes p3lv{0%,68%{opacity:0}78%,100%{opacity:1}}
+@keyframes p3pa{0%{opacity:0;transform:translateY(.8em)}4%,56%{opacity:1;transform:none}62%,100%{opacity:0;transform:translateY(-.6em)}}
+@keyframes p3pb{0%,62%{opacity:0;transform:translateY(.8em) scale(.9)}68%{opacity:1;transform:scale(1.06)}72%,100%{opacity:1;transform:none}}
+
+/* ----- Informasi ----- */
+.cp-info{min-width:0;min-height:0;display:flex;flex-direction:column;justify-content:center;gap:.7em}
+.cp-tag{align-self:flex-start;display:inline-flex;align-items:center;padding:.2em .95em;border-radius:99px;color:#fff;
+  background:linear-gradient(120deg,var(--a1),var(--a2));font-size:.78em;font-weight:800;letter-spacing:.08em;
+  text-transform:uppercase;text-shadow:0 1px 2px rgba(0,0,0,.3)}
+.cp-info h3{font-size:1.8em;line-height:1.2;color:var(--g900)}
+.cp-info p{color:#1f2a24;font-size:1.02em;font-weight:500}
+.cp-list{list-style:none;display:grid;gap:.45em;margin:0;padding:0}
+.cp-list li{position:relative;margin:0;padding-left:2em;font-weight:600}
+.cp-list li::before{content:"✓";position:absolute;left:0;top:.05em;display:grid;place-items:center;width:1.4em;height:1.4em;border-radius:50%;
+  background:linear-gradient(135deg,var(--a1),var(--a2));color:#fff;font-size:.8em;font-weight:800;line-height:1}
+.cp-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.7em;margin-top:.2em}
+.cp-stat{padding:.5em .6em;border-radius:1em;text-align:center;
+  background:color-mix(in srgb,var(--a1) 10%,#fff);border:1px solid color-mix(in srgb,var(--a1) 28%,#fff)}
+.cp-stat b{display:block;color:var(--a2);font-size:1.3em;font-weight:800;line-height:1.15}
+.cp-stat span{display:block;color:var(--muted);font-size:.78em;font-weight:700;line-height:1.3}
+
+/* ----- Tablet & HP: tinggi bebas ----- */
+@media (max-width:900px){
+  .cp{height:auto;font-size:14px;padding-block:20px}
+  .cp-in{height:auto}
+  .cp-card,.cp-stage{flex:none}
+  .cp-panel{grid-template-columns:minmax(0,1fr);grid-template-rows:auto}
+  .cp-visual{height:20em}
+  .cp-txt small{display:none}
+}
+@media (max-width:560px){
+  .cp-tab{flex-direction:column;gap:.3em;padding:.55em .3em;text-align:center}
+  .cp-txt{align-items:center}
+  .cp-txt b{font-size:.95em}
+  .cp-info h3{font-size:1.5em}
+  .cp-titlewrap{padding-inline:0}
+  .cp-ico{display:none}
+}
