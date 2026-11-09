@@ -3,12 +3,12 @@
 @section('title', 'Padi Sehat')
 
 @push('styles')
-    <link rel="stylesheet" href="{{ asset('css/result.css') }}?v=1">
+    <link rel="stylesheet" href="{{ asset('css/result.css') }}?v=2">
     <link rel="stylesheet" href="{{ asset('css/healthy.css') }}?v=1">
 @endpush
 
 @push('scripts')
-    <script src="{{ asset('js/result.js') }}?v=1"></script>
+    <script src="{{ asset('js/result.js') }}?v=2"></script>
 @endpush
 
 @section('content')
@@ -47,9 +47,12 @@
     </div>
 
     <div class="rs-grid">
-        <figure class="rs-photo" style="--img: url('{{ $analysis->image_url }}')">
+        <figure class="rs-photo" style="--img: url('{{ $analysis->image_url }}')" data-zoom data-src="{{ $analysis->image_url }}" role="button" tabindex="0" aria-label="Perbesar foto yang dianalisis">
             <img src="{{ $analysis->image_url }}" alt="Foto daun padi yang dianalisis">
             <figcaption>Foto yang dianalisis</figcaption>
+            <span class="rs-photo-zoom" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+            </span>
         </figure>
 
         <article class="rs-card rs-head">
@@ -134,6 +137,25 @@
         </article>
     </div>
 
-    <p class="rs-note">Hasil ini indikasi awal berdasarkan warna foto dan bukan jaminan padi bebas penyakit. Jika ada gejala di lapangan, foto ulang lebih dekat atau tanyakan ke penyuluh pertanian (PPL).</p>
+    <p class="rs-note">
+        <span class="rs-note-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg></span>
+        <b class="rs-note-tag">Catatan</b>
+        <span>Hasil ini indikasi awal berdasarkan warna foto dan <strong>bukan jaminan padi bebas penyakit</strong>. Jika ada gejala di lapangan, foto ulang lebih dekat atau tanyakan ke penyuluh pertanian (PPL).</span>
+    </p>
 </section>
+
+<div class="rs-lb" id="rsLb" role="dialog" aria-modal="true" aria-label="Foto diperbesar" hidden>
+    <button type="button" class="rs-lb-close" aria-label="Tutup">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <div class="rs-lb-stage">
+        <img class="rs-lb-img" src="" alt="Foto daun padi yang dianalisis" draggable="false">
+    </div>
+    <div class="rs-lb-tools">
+        <button type="button" data-act="out" aria-label="Perkecil">&minus;</button>
+        <span class="rs-lb-zoom">100%</span>
+        <button type="button" data-act="in" aria-label="Perbesar">+</button>
+        <button type="button" data-act="reset">Reset</button>
+    </div>
+</div>
 @endsection

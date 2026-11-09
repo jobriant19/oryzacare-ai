@@ -3,7 +3,7 @@
 @section('title', 'Deteksi')
 
 @push('styles')
-    <link rel="stylesheet" href="{{ asset('css/detect.css') }}?v=9">
+    <link rel="stylesheet" href="{{ asset('css/detect.css') }}?v=10">
 @endpush
 
 @push('scripts')
@@ -193,9 +193,19 @@
 
 <div class="loading" id="loading" hidden aria-live="polite" role="status">
     <div class="loading-box">
-        <div class="spinner" aria-hidden="true"></div>
-        <p><strong>Menganalisis foto…</strong></p>
-        <p class="muted small">Mohon tunggu sebentar.</p>
+        <div class="ld-orb" aria-hidden="true">
+            <span class="ld-ring"></span>
+            <span class="ld-ring ld-ring2"></span>
+            <span class="ld-core"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg></span>
+        </div>
+        <p class="ld-title"><strong>Menganalisis foto…</strong></p>
+        <p class="ld-sub">Mohon tunggu sebentar.</p>
+        <ul class="ld-steps" aria-hidden="true">
+            <li style="--d:0s">Membaca foto</li>
+            <li style="--d:1.6s">Mengukur warna daun</li>
+            <li style="--d:3.2s">Mencocokkan penyakit</li>
+        </ul>
+        <div class="ld-bar" aria-hidden="true"><span></span></div>
     </div>
 </div>
 @endsection

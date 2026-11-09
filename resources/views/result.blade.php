@@ -3,11 +3,11 @@
 @section('title', 'Hasil Analisis')
 
 @push('styles')
-    <link rel="stylesheet" href="{{ asset('css/result.css') }}?v=1">
+    <link rel="stylesheet" href="{{ asset('css/result.css') }}?v=2">
 @endpush
 
 @push('scripts')
-    <script src="{{ asset('js/result.js') }}?v=1"></script>
+    <script src="{{ asset('js/result.js') }}?v=2"></script>
 @endpush
 
 @section('content')
@@ -15,13 +15,18 @@
     $info  = $analysis->info;
     $level = $analysis->level;
     $pct   = number_format($analysis->confidence, 1, ',', '.');
+    $names = ['Bacterialblight' => 'Bacterialblight', 'Blast' => 'Blast', 'Brownspot' => 'Brown Spot', 'Tungro' => 'Tungro'];
+    $top   = collect($probabilities)->keys()->first();
 @endphp
 <section class="container rs" data-tone="{{ $info['tone'] }}">
 
     <div class="rs-top">
         <div class="rs-titlebox">
             <h1>Hasil Analisis</h1>
-            <span class="rs-date">{{ $analysis->waktu }}</span>
+            <span class="rs-date">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                {{ $analysis->waktu }}
+            </span>
         </div>
         <div class="rs-actions">
             <a href="{{ route('deteksi') }}" class="btn btn-primary" aria-label="Analisis foto lain">
@@ -44,15 +49,18 @@
     </div>
 
     <div class="rs-grid">
-        <figure class="rs-photo" style="--img: url('{{ $analysis->image_url }}')">
+        <figure class="rs-photo" style="--img: url('{{ $analysis->image_url }}')" data-zoom data-src="{{ $analysis->image_url }}" role="button" tabindex="0" aria-label="Perbesar foto yang dianalisis">
             <img src="{{ $analysis->image_url }}" alt="Foto daun padi yang dianalisis">
             <figcaption>Foto yang dianalisis</figcaption>
+            <span class="rs-photo-zoom" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+            </span>
         </figure>
 
         <article class="rs-card rs-head">
             <div class="rs-headtext">
                 <p class="rs-eyebrow">Penyakit terdeteksi</p>
-                <h2 class="rs-name">{{ $info['name'] }}</h2>
+                <h2 class="rs-name">{{ $names[$top] ?? $info['name'] }}</h2>
                 <p class="rs-latin">{{ $info['latin'] }}</p>
                 <div class="rs-chips">
                     <span class="rs-chip">Tingkat risiko: {{ $info['risk'] }}</span>
@@ -95,7 +103,7 @@
                     @php $d = config('padi.diseases.'.$label); @endphp
                     <div class="rs-prob {{ $loop->first ? 'top' : '' }}">
                         <div class="rs-probhead">
-                            <span>{{ $d['name'] ?? $label }}</span>
+                            <span>{{ $names[$label] ?? $d['name'] ?? $label }}</span>
                             <b>{{ number_format($value, 1, ',', '.') }}%</b>
                         </div>
                         <div class="rs-track"><span style="width: {{ max(min($value, 100), 0) }}%"></span></div>
@@ -115,7 +123,15 @@
                 @endforeach
             </ol>
             @if (! empty($info['prevention']))
-                <p class="rs-prevent"><strong>Pencegahan:</strong> {{ $info['prevention'] }}</p>
+                <div class="rs-prevent">
+                    <span class="rs-prevent-ico">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+                    </span>
+                    <div>
+                        <strong>Pencegahan</strong>
+                        <p>{{ $info['prevention'] }}</p>
+                    </div>
+                </div>
             @endif
         </article>
 
@@ -132,6 +148,25 @@
         </article>
     </div>
 
-    <p class="rs-note">Hasil ini indikasi awal dari model berbasis warna foto, bukan pengganti diagnosis ahli. Jenis dan takaran pestisida wajib mengikuti label produk dan anjuran PPL setempat.</p>
+    <p class="rs-note">
+        <span class="rs-note-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg></span>
+        <b class="rs-note-tag">Catatan</b>
+        <span>Hasil ini indikasi awal dari model berbasis warna foto, <strong>bukan pengganti diagnosis ahli</strong>. Jenis dan takaran pestisida wajib mengikuti label produk dan anjuran PPL setempat.</span>
+    </p>
 </section>
+
+<div class="rs-lb" id="rsLb" role="dialog" aria-modal="true" aria-label="Foto diperbesar" hidden>
+    <button type="button" class="rs-lb-close" aria-label="Tutup">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <div class="rs-lb-stage">
+        <img class="rs-lb-img" src="" alt="Foto daun padi yang dianalisis" draggable="false">
+    </div>
+    <div class="rs-lb-tools">
+        <button type="button" data-act="out" aria-label="Perkecil">&minus;</button>
+        <span class="rs-lb-zoom">100%</span>
+        <button type="button" data-act="in" aria-label="Perbesar">+</button>
+        <button type="button" data-act="reset">Reset</button>
+    </div>
+</div>
 @endsection
