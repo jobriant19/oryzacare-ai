@@ -1,5 +1,10 @@
 {
   "version": 2,
+  "framework": null,
+  "buildCommand": null,
+  "installCommand": null,
+  "outputDirectory": "public",
+  "regions": ["sin1"],
   "functions": {
     "api/index.php": { "runtime": "vercel-php@0.7.4", "maxDuration": 30 },
     "api/classify.py": {
@@ -9,7 +14,7 @@
   },
   "routes": [
     { "src": "/api/classify", "dest": "/api/classify.py" },
-    { "src": "/(.*\\.(?:css|js|png|jpg|jpeg|webp|svg|ico|glb|woff2?))", "dest": "/public/$1" },
+    { "handle": "filesystem" },
     { "src": "/(.*)", "dest": "/api/index.php" }
   ],
   "env": {
