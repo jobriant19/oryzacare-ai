@@ -9,6 +9,7 @@
     "api/index.php": { "runtime": "vercel-php@0.7.4", "maxDuration": 30 },
     "api/classify.py": {
       "includeFiles": "python/{predict.py,model_random_forest.pkl}",
+      "excludeFiles": "{vendor,node_modules,public,resources,storage,database,app,bootstrap,config,routes,tests,training,certs,.git}/**",
       "maxDuration": 30
     }
   },
