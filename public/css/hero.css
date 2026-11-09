@@ -1,0 +1,110 @@
+/* ===== Hero: panel kaca terpisah, tombol hijau, padi.png, kartu mengelilingi model =====
+   Dimuat setelah hero3d.css dan menimpa gaya panel, teks, tombol, dan kartu lamanya.
+   Panggung 3D / ASCII tidak disentuh. */
+section.hero{--hg:rgba(8,40,22,.30)}
+
+/* ----- Teks kiri: tiga bagian terpisah, tanpa panel besar ----- */
+section.hero .hero-text{position:relative;grid-template-columns:minmax(0,1fr);
+  column-gap:clamp(8px,1.6vw,20px);row-gap:clamp(10px,1.6vw,18px);
+  padding:0;border:0;border-radius:0;background:none;box-shadow:none;
+  -webkit-backdrop-filter:none;backdrop-filter:none}
+section.hero .hero-text::before,section.hero .hero-text::after{display:none}
+
+/* 1. Judul: panel kaca opacity 30% */
+section.hero .hero-text h1{grid-column:1/-1;justify-self:start;max-width:100%;margin:0;
+  padding:clamp(10px,1.7cqw,22px) clamp(14px,2.4cqw,30px);border-radius:clamp(14px,2cqw,24px);
+  background:var(--hg);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,.3);box-shadow:0 .5em 1.4em rgba(0,0,0,.18);
+  text-shadow:0 2px 8px rgba(0,0,0,.6)}
+section.hero .hero-text h1 .hy{color:#facc15;font-weight:inherit}
+
+
+/* 2. Deskripsi: panel kaca terpisah, font weight 600 */
+section.hero .hero-text .lead{grid-column:1;justify-self:start;width:fit-content;max-width:min(100%,36em);margin:0;
+  padding:clamp(9px,1.3cqw,16px) clamp(13px,2cqw,24px);border-radius:clamp(12px,1.8cqw,20px);
+  background:var(--hg);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,.3);color:#fff;font-weight:600;text-shadow:0 1px 3px rgba(0,0,0,.6)}
+
+/* 3. Tombol Mulai Deteksi: hijau pekat (tanpa transparansi) */
+section.hero .hero-text .hero-cta{grid-column:1;justify-self:start}
+.hero-cta{position:relative;isolation:isolate;display:inline-flex;align-items:center;gap:.75em;
+  padding:.5em .55em .5em .6em;border-radius:99px;font-size:1.05rem;font-weight:800;letter-spacing:.01em;color:#fff;
+  text-decoration:none;text-shadow:0 1px 2px rgba(0,0,0,.35);
+  background:linear-gradient(135deg,#22c55e,#15803d);border:2px solid #bbf7d0;
+  box-shadow:0 .7em 1.5em -.4em rgba(21,128,61,.85),inset 0 1px 0 rgba(255,255,255,.45),inset 0 -.18em 0 rgba(0,0,0,.14);
+  transition:transform .2s,box-shadow .2s,filter .2s}
+.hero-cta:hover{transform:translateY(-3px) scale(1.03);filter:brightness(1.07);
+  box-shadow:0 1em 1.9em -.4em rgba(21,128,61,.95),inset 0 1px 0 rgba(255,255,255,.45),inset 0 -.18em 0 rgba(0,0,0,.14)}
+.hero-cta:active{transform:translateY(0) scale(.98)}
+.hero-cta:focus-visible{outline:3px solid #fff;outline-offset:3px}
+
+.cta-bg{position:absolute;inset:0;z-index:-1;overflow:hidden;border-radius:inherit;pointer-events:none}
+.cta-shine{position:absolute;top:0;bottom:0;left:0;width:38%;transform:translateX(-160%) skewX(-20deg);
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);animation:cta-shine 3.4s ease-in-out infinite;will-change:transform}
+@keyframes cta-shine{0%,55%{transform:translateX(-160%) skewX(-20deg)}100%{transform:translateX(420%) skewX(-20deg)}}
+.cta-ico{display:grid;place-items:center;flex:none;width:2.3em;height:2.3em;border-radius:50%;background:#fff;color:#15803d;
+  text-shadow:none;box-shadow:0 .2em .5em rgba(0,0,0,.25);animation:cta-bob 2.6s ease-in-out infinite}
+.cta-ico svg{width:1.25em;height:1.25em}
+@keyframes cta-bob{0%,100%{transform:rotate(0)}50%{transform:rotate(-9deg) scale(1.06)}}
+.cta-arrow{display:grid;place-items:center;flex:none;width:2em;height:2em;border-radius:50%;background:rgba(255,255,255,.25);
+  text-shadow:none;transition:transform .25s}
+.hero-cta:hover .cta-arrow{transform:translateX(.3em)}
+
+
+
+/* ----- Kartu: mengelilingi model (atas-tengah, bawah-kiri, bawah-kanan) ----- */
+@property --hc-ang{syntax:'<angle>';inherits:false;initial-value:0deg}
+@keyframes hc-spin{to{--hc-ang:360deg}}
+@keyframes hc-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-.55em)}}
+
+@keyframes hc-wiggle{0%,100%{transform:rotate(0)}30%{transform:rotate(-14deg) scale(1.15)}70%{transform:rotate(12deg) scale(1.15)}}
+
+.h3d-frame{container-type:inline-size}
+.hc{--c1:#16a34a;--c2:#a3e635;--ink:#14532d;--bg1:#ecfdf5;--bg2:#bbf7d0;--edge:rgba(22,163,74,.28);
+  position:absolute;z-index:3;display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;column-gap:.8em;
+  width:13.6em;margin:0;padding:.65em .9em .65em .65em;border:0;border-radius:1.15em;text-align:left;
+  font:inherit;font-size:clamp(9.5px,2.25cqw,14.5px);color:var(--ink);cursor:pointer;-webkit-appearance:none;appearance:none;
+  background:linear-gradient(135deg,var(--bg1),var(--bg2));
+  box-shadow:inset 0 0 0 1.5px var(--edge),0 .9em 2em rgba(0,0,0,.28),0 0 1.5em -.3em var(--c1);
+  animation:hc-float 5s ease-in-out infinite;transition:scale .25s,box-shadow .25s;will-change:transform}
+@supports not (width:1cqw){.hc{font-size:13px}}
+.hc>*{position:relative;z-index:1}
+.hc::before{content:"";position:absolute;inset:0;z-index:0;border-radius:inherit;padding:.18em;pointer-events:none;
+  background:conic-gradient(from var(--hc-ang),transparent 0 45%,var(--c1) 68%,#22c55e 86%,var(--c2) 100%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;
+  mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude;
+  animation:hc-spin 3.2s linear infinite}
+.hc::after{content:"";position:absolute;inset:0;z-index:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .25s;
+  background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,.7),transparent 58%)}
+.hc:hover,.hc:focus-visible,.hc.is-open{scale:1.05;
+  box-shadow:inset 0 0 0 1.5px var(--c1),0 1.1em 2.4em rgba(0,0,0,.34),0 0 2em -.1em var(--c1)}
+.hc:hover::after,.hc.is-open::after{opacity:1}
+.hc:focus-visible{outline:3px solid #fff;outline-offset:3px}
+
+.hc--acc{top:-10px;left:0}
+.hc--model{--c1:#f59e0b;--c2:#fde047;--ink:#78350f;--bg1:#fffbeb;--bg2:#fde68a;--edge:rgba(245,158,11,.3);
+  top:40%;right:max(-4em,calc(8px - clamp(16px,5vw,72px)));animation-delay:-1.7s}
+.hc--data{--c1:#0ea5e9;--c2:#2dd4bf;--ink:#0c4a6e;--bg1:#ecfeff;--bg2:#bae6fd;--edge:rgba(14,165,233,.3);
+  bottom:3%;left:4%;animation-delay:-3.2s}
+
+.hc-ico{position:relative;display:grid;place-items:center;width:2.7em;height:2.7em;border-radius:.85em;color:#fff;
+  background:linear-gradient(135deg,var(--c1),var(--c2));box-shadow:0 .25em .7em -.2em var(--c1)}
+.hc-ico svg{width:1.45em;height:1.45em}
+
+.hc:hover .hc-ico svg,.hc.is-open .hc-ico svg{animation:hc-wiggle .6s ease}
+.hc-main{display:block;min-width:0}
+.hc-val{display:block;font-weight:800;font-size:1.22em;line-height:1.1;font-variant-numeric:tabular-nums}
+.hc-lbl{display:block;font-size:.86em;line-height:1.3;opacity:.75}
+
+/* Detail: terbuka saat disorot, difokus, atau diklik/diketuk */
+.hc-more{grid-column:1/-1;max-height:0;margin:0;overflow:hidden;opacity:0;font-size:.82em;font-weight:600;line-height:1.35;
+  transition:max-height .35s ease,opacity .3s ease,margin .3s ease}
+.hc:hover .hc-more,.hc:focus-visible .hc-more,.hc.is-open .hc-more{max-height:4em;margin-top:.55em;opacity:1}
+
+/* ----- Tablet & HP ----- */
+@media (max-width:860px){
+  section.hero .hero-text{padding:0;border-radius:0}
+  section.hero .hero-text .lead{grid-column:1/-1;margin:0}
+  .hero-cta{padding:.5em .55em .5em .6em;font-size:1rem}
+
+}

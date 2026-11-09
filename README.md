@@ -111,6 +111,7 @@ oryzacare-ai/
 │   │   ├── footer.css                    # Gaya footer dan statistik
 │   │   ├── detect.css                    # Gaya halaman Deteksi (kartu ketentuan, tips, kartu penyakit)
 │   │   ├── history.css                   # Gaya halaman Riwayat (pencarian, filter, kartu, indikator halaman)
+│   │   ├── hero.css                      # Gaya hero Beranda (panel kaca, tombol hijau, kartu mengelilingi model)
 │   │   ├── diseases.css                  # Gaya Jenis penyakit di Beranda (kartu bergaris bergerak)
 │   │   ├── cara.css                      # Gaya Cara pakai di Beranda (tab, animasi tiap langkah, garis waktu)
 │   │   └── recent.css                    # Gaya Analisis terbaru dan Catatan penting di Beranda
@@ -121,6 +122,7 @@ oryzacare-ai/
 │   │   ├── detect.js                     # Pratinjau, validasi format/ukuran, pop up, loading, dan Coba Foto Lain
 │   │   ├── fit.js                        # Dipanggil halaman Deteksi (detect.blade.php)
 │   │   ├── history.js                    # Pencarian, 4 kartu per halaman + indikator
+│   │   ├── herocards.js                  # Kartu hero: angka berhitung naik, buka detail, kilau kursor
 │   │   ├── diseases.js                   # Tinggi layar dan efek muncul Jenis penyakit di Beranda
 │   │   ├── cara.js                       # Perpindahan langkah otomatis berputar (1 → 2 → 3 → 1) dan tinggi layar
 │   │   └── recent.js                     # Tinggi layar dan penanda foto rusak di Beranda
@@ -148,6 +150,7 @@ oryzacare-ai/
 │       │   ├── header.blade.php          # Header putih + menu
 │       │   ├── footer.blade.php          # Footer: deskripsi, tautan cepat, petani, statistik pengunjung
 │       │   ├── history-card.blade.php    # Kartu riwayat (dipakai Riwayat dan Beranda)
+│       │   ├── hero.blade.php            # Hero Beranda: judul, deskripsi, tombol, model 3D/ASCII, 3 kartu
 │       │   ├── diseases.blade.php        # Jenis penyakit (Beranda)
 │       │   ├── howto.blade.php           # Cara pakai: tiga langkah (Beranda)
 │       │   └── recent.blade.php          # Analisis terbaru + Catatan penting (Beranda)
@@ -198,10 +201,7 @@ Pastikan MySQL di Laragon sudah menyala (**Start All**), lalu:
 mysql -u root -e "CREATE DATABASE oryzacare_ai CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci"
 ```
 
-### 3. Salin file proyek
-Salin seluruh isi paket proyek (folder `app`, `config`, `database`, `public`, `python`, `resources`, `routes`) ke `D:\oryzacare-ai` dan timpa jika ditanya.
-
-### 4. Atur `.env`
+### 3. Atur `.env`
 Buka `D:\oryzacare-ai\.env`, lalu ganti atau tambahkan:
 ```env
 APP_NAME="OryzaCare AI"
@@ -219,7 +219,7 @@ PADI_PYTHON="D:/oryzacare-ai/python/venv/Scripts/python.exe"
 ```
 > Gunakan garis miring biasa (`/`) pada `PADI_PYTHON`.
 
-### 5. Siapkan Python
+### 4. Siapkan Python
 ```bash
 cd /d D:\oryzacare-ai\python
 python -m venv venv
@@ -227,7 +227,7 @@ venv\Scripts\pip install -r requirements.txt
 ```
 Versi **scikit-learn harus 1.6.1** karena sama dengan versi yang dipakai saat model disimpan.
 
-### 6. Migrasi database
+### 5. Migrasi database
 ```bash
 cd /d D:\oryzacare-ai
 php artisan migrate
@@ -327,7 +327,5 @@ Contoh keluaran:
 Proyek ini dibuat untuk UTS APLIKASI KECERDASAN BUATAN.
 
 <div align="center">
-
-Dibuat dengan 💚 untuk petani dan pelajar Indonesia.
 
 </div>
